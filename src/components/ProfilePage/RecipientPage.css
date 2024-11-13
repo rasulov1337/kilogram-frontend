@@ -1,0 +1,16 @@
+.avatar-offset {
+    position: relative;
+    top: -90px;
+    outline: 4px solid #222;
+    border-radius: 50%;
+
+    min-width: var(--big-avatar-size);
+    max-width: var(--big-avatar-size);
+
+    min-height: var(--big-avatar-size);
+    max-height: var(--big-avatar-size);
+}
+
+.status-text {
+    font-size: 18px;
+}

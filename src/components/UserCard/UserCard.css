@@ -1,0 +1,51 @@
+.user-card {
+    gap: 25px;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 280px;
+    height: 390px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+    padding: 0;
+    position: relative;
+    border: 1px solid #363738;
+}
+
+.avatar-sm {
+    width: 120px;
+
+    border-radius: 50%;
+    background-color: white;
+
+    width: var(--avatar-size-sm);
+    height: var(--avatar-size-sm);
+}
+
+.avatar {
+    border-radius: 50%;
+    background-color: white;
+    object-fit: cover;
+    object-position: center;
+
+    width: var(--avatar-size);
+    height: var(--avatar-size);
+}
+
+.user-info {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.name {
+    font-size: 32px;
+    font-weight: 500;
+    overflow: break-word;
+    overflow-wrap: break-word;
+}
