@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./UserCard.css";
 
 interface UserCardData {
@@ -10,7 +11,7 @@ interface UserCardData {
 const UserCard = ({ id, avatar, name, phone }: UserCardData) => {
     return (
         <>
-            <a href={"/recipients/" + id} className="user-card">
+            <Link to={"" + id} className="user-card">
                 <img
                     className="avatar"
                     src={avatar || "/default.png"}
@@ -20,7 +21,7 @@ const UserCard = ({ id, avatar, name, phone }: UserCardData) => {
                     <div className="name">{name}</div>
                     <p className="grey-text">{phone}</p>
                 </div>
-            </a>
+            </Link>
         </>
     );
 };

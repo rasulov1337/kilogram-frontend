@@ -11,9 +11,7 @@ const Header = () => {
             <Navbar className="header" expand="lg">
                 <Container>
                     <Navbar.Brand href="/" className="text-white fs-2">
-                        <Link style={{ marginTop: "50px" }} to={ROUTES.HOME}>
-                            KiloGram
-                        </Link>
+                        <Link to={ROUTES.HOME}>KiloGram</Link>
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
@@ -22,12 +20,7 @@ const Header = () => {
                                 href="/recipients/"
                                 className="text-white"
                             >
-                                <Link
-                                    style={{ marginTop: "50px" }}
-                                    to={ROUTES.RECIPIENTS}
-                                >
-                                    Получатели
-                                </Link>
+                                <Link to={ROUTES.RECIPIENTS}>Получатели</Link>
                             </Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
