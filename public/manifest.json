@@ -1,0 +1,28 @@
+{
+    "name": "Kilogram",
+    "short_name": "Kilogram",
+    "start_url": "/kilogram-frontend/",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#00001a",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/kilogram-frontend/logo.png",
+            "type": "image/png",
+            "sizes": "1024x1024"
+        },
+        {
+            "src": "/kilogram-frontend/maskable_icon.png",
+            "type": "image/png",
+            "sizes": "1024x1024",
+            "purpose": "maskable"
+        },
+        {
+            "src": "/kilogram-frontend/maskable_icon_x192.png",
+            "type": "image/png",
+            "sizes": "192x192",
+            "purpose": "maskable"
+        }
+    ]
+}
