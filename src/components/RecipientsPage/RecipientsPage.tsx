@@ -1,7 +1,6 @@
 import "./RecipientsPage.css";
 import UserCard from "../UserCard/UserCard";
 import ApiClient from "../../modules/ApiClient";
-import { RECIPIENTS_MOCK } from "../../modules/Mocks";
 import { ReactElement, useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { BreadCrumbs } from "../BreadCrumbs/BreadCrumbs";
