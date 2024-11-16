@@ -2,6 +2,8 @@ import "./Header.css";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import { Link } from "react-router-dom";
+import { ROUTES } from "../../modules/Routes";
 
 const Header = () => {
     return (
@@ -9,7 +11,9 @@ const Header = () => {
             <Navbar className="header" expand="lg">
                 <Container>
                     <Navbar.Brand href="/" className="text-white fs-2">
-                        KiloGram
+                        <Link style={{ marginTop: "50px" }} to={ROUTES.HOME}>
+                            KiloGram
+                        </Link>
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
@@ -18,10 +22,12 @@ const Header = () => {
                                 href="/recipients/"
                                 className="text-white"
                             >
-                                Получатели
-                            </Nav.Link>
-                            <Nav.Link href="/transfers/" className="text-white">
-                                Отправки файлов
+                                <Link
+                                    style={{ marginTop: "50px" }}
+                                    to={ROUTES.RECIPIENTS}
+                                >
+                                    Получатели
+                                </Link>
                             </Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
