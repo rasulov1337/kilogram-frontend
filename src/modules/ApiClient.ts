@@ -14,6 +14,15 @@ export default class ApiClient {
             const data = await response.json();
             return data;
         } catch {
+            if (name) {
+                name = name.toLowerCase();
+                return [
+                    ...RECIPIENTS_MOCK.slice(0, -1).filter((x) =>
+                        x.name!.toLowerCase().startsWith(name)
+                    ),
+                    RECIPIENTS_MOCK.at(-1),
+                ];
+            }
             return RECIPIENTS_MOCK;
         }
     }
