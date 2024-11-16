@@ -55,7 +55,7 @@ const RecipientPage = () => {
                 <div className="user-main-info">
                     <img
                         className="avatar avatar-offset"
-                        src={avatar || "/default.png"}
+                        src={avatar || "/kilogram-frontend/default.png"}
                         alt="User"
                     />
                     <div className="user-info-text-main">

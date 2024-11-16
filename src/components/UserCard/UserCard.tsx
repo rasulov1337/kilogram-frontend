@@ -14,7 +14,7 @@ const UserCard = ({ id, avatar, name, phone }: UserCardData) => {
             <Link to={"" + id} className="user-card">
                 <img
                     className="avatar"
-                    src={avatar || "/default.png"}
+                    src={avatar || "/kilogram-frontend/default.png"}
                     alt="User"
                 />
                 <div className="user-info">
