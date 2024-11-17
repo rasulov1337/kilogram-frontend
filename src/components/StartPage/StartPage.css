@@ -5,12 +5,32 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 
 .start-page__title {
+    width: 80%;
+    margin: 0 auto 10px;
     font-size: 35px;
 }
 
 .start-page__desc {
+    width: 80%;
+    margin: 0 auto;
     font-size: 20px;
+}
+
+@media (max-width: 700px) {
+    .start-page__title {
+        width: 90%;
+        margin: 0 auto 10px;
+        font-size: 35px;
+    }
+
+    .start-page__desc {
+        text-align: left;
+        width: 90%;
+        margin: 0 auto;
+        font-size: 20px;
+    }
 }

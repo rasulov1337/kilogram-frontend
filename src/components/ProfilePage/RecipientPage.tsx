@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
-import "./RecipientPage.css";
 import { useEffect, useState } from "react";
 import ApiClient from "../../modules/ApiClient";
 import { ROUTE_LABELS, ROUTES } from "../../modules/Routes";
 import { BreadCrumbs } from "../BreadCrumbs/BreadCrumbs";
 import { Spinner } from "react-bootstrap";
+import "./RecipientPage.css";
 
 interface RecipientData {
     id: number;
@@ -51,17 +51,15 @@ const RecipientPage = () => {
                 />
             </div>
 
-            <div className="block main-info block-padding">
-                <div className="user-main-info">
-                    <img
-                        className="avatar avatar-offset"
-                        src={avatar || "/kilogram-frontend/default.png"}
-                        alt="User"
-                    />
-                    <div className="user-info-text-main">
-                        <div className="name">{name}</div>
-                        <p className="status-text">{desc}</p>
-                    </div>
+            <div className="block block-padding user-main-info">
+                <img
+                    className="avatar avatar-offset"
+                    src={avatar || "/kilogram-frontend/default.png"}
+                    alt="User"
+                />
+                <div className="user-main-info__text">
+                    <div className="name">{name}</div>
+                    <p className="status-text">{desc}</p>
                 </div>
             </div>
 

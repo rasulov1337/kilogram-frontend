@@ -1,8 +1,7 @@
 .user-card {
     gap: 25px;
-    margin: 20px auto;
-    width: 100%;
-    max-width: 280px;
+    margin: 20px 0;
+    width: 240px;
     height: 390px;
     display: flex;
     flex-direction: column;
@@ -48,4 +47,14 @@
     font-weight: 500;
     overflow: break-word;
     overflow-wrap: break-word;
+}
+
+.grey-text {
+    color: #999;
+}
+
+@media (max-width: 700px) {
+    .user-card {
+        width: 80%;
+    }
 }
