@@ -68,6 +68,7 @@
         flex-direction: column;
         width: 80%;
         height: min-content;
+        margin-top: 10px !important;
     }
 
     .user-main-info__text {

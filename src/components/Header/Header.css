@@ -10,20 +10,20 @@
     height: 70px;
 }
 
-.header__logo {
-    font-size: 32px;
-}
-
-.header__link {
-    color: #fff;
-    text-decoration: none;
-    font-size: 20px;
-    line-height: 42px; /* Helps positioning text in VCenter */
-}
-
 .header__links {
     display: flex;
     justify-content: space-between;
     align-content: center;
     gap: 50px;
+}
+
+@media (max-width: 990px) {
+    .header {
+        padding: 15px 40px;
+        height: auto;
+    }
+
+    .header__logo {
+        font-size: 38px !important;
+    }
 }

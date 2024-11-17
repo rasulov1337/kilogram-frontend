@@ -10,13 +10,13 @@ const Header = () => {
         <>
             <Navbar className="header" expand="lg">
                 <Container>
-                    <Navbar.Brand className="text-white fs-2">
+                    <Navbar.Brand className="text-white fs-2 header__logo">
                         <Link to={ROUTES.HOME}>KiloGram</Link>
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ms-auto text-white fs-5">
-                            <Nav.Link className="text-white">
+                            <Nav.Link className="text-white header__link">
                                 <Link to={ROUTES.RECIPIENTS}>Получатели</Link>
                             </Nav.Link>
                         </Nav>
