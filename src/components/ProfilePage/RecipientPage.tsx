@@ -5,17 +5,7 @@ import { ROUTE_LABELS, ROUTES } from "../../modules/Routes";
 import { BreadCrumbs } from "../BreadCrumbs/BreadCrumbs";
 import { Spinner } from "react-bootstrap";
 import "./RecipientPage.css";
-
-interface RecipientData {
-    id: number;
-    name: string;
-    desc: string;
-    birthdate: string;
-    city: string;
-    phone: string;
-    uni: string;
-    avatar: string;
-}
+import { RecipientData } from "../../modules/Types";
 
 const RecipientPage = () => {
     const { id } = useParams();
