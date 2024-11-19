@@ -1,10 +1,17 @@
 import "./RecipientsPage.css";
 import UserCard from "../UserCard/UserCard";
 import ApiClient from "../../modules/ApiClient";
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useEffect } from "react";
 import { Spinner } from "react-bootstrap";
 import { BreadCrumbs } from "../BreadCrumbs/BreadCrumbs";
 import { ROUTE_LABELS } from "../../modules/Routes";
+import {
+    setPageDataAction,
+    setRecipientNameQuery,
+    usePageData,
+    useRecipientNameQuery,
+} from "../../slices/FilterSlice";
+import { useDispatch } from "react-redux";
 
 interface DraftTransferInfo {
     draftId: number | null;
@@ -21,15 +28,16 @@ interface RecipientCardData {
 type DataArray = (RecipientCardData | DraftTransferInfo)[];
 
 const RecipientsPage = () => {
-    const [pageData, setPageData] = useState<DataArray>();
-    const [recipientNameQuery, setRecipientNameQuery] = useState<string>();
+    const pageData: DataArray = usePageData();
+    const recipientNameQuery = useRecipientNameQuery();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         (async () => {
             const data = await ApiClient.getRecipients(
                 recipientNameQuery ? recipientNameQuery : undefined
             );
-            setPageData(data);
+            dispatch(setPageDataAction(data));
         })();
     }, [recipientNameQuery]);
 
@@ -66,7 +74,7 @@ const RecipientsPage = () => {
                         const recipientName = formData.get(
                             "recipient-name"
                         ) as string;
-                        setRecipientNameQuery(recipientName);
+                        dispatch(setRecipientNameQuery(recipientName));
                     }}
                 >
                     <input
@@ -77,6 +85,7 @@ const RecipientsPage = () => {
                         minLength={1}
                         maxLength={70}
                         placeholder="Поиск"
+                        defaultValue={recipientNameQuery}
                     />
                 </form>
 
