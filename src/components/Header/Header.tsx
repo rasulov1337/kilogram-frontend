@@ -16,9 +16,12 @@ const Header = () => {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ms-auto text-white fs-5">
-                            <Nav.Link className="text-white">
-                                <Link to={ROUTES.RECIPIENTS}>Получатели</Link>
-                            </Nav.Link>
+                            <Link
+                                className="text-white header__link"
+                                to={ROUTES.RECIPIENTS}
+                            >
+                                Получатели
+                            </Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
