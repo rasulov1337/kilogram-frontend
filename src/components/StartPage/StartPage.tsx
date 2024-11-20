@@ -1,6 +1,4 @@
-import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { ROUTES } from "../../modules/Routes";
+import { Carousel } from "react-bootstrap";
 import "./StartPage.css";
 
 export default function StartPage() {
@@ -13,9 +11,20 @@ export default function StartPage() {
                 Цель проекта — предоставить наиболее удобный интерфейс для
                 групповой отправки файла нескольким пользователям.
             </p>
-            <Link style={{ marginTop: "50px" }} to={ROUTES.RECIPIENTS}>
-                <Button variant="primary">Просмотреть получаталей</Button>
-            </Link>
+            <Carousel className="Carousel">
+                <Carousel.Item className="CaruselItem">
+                    <img width="900px" className="CarouselImage" src="/1.png" />
+                    <Carousel.Caption>
+                        <h3>Список получаталей</h3>
+                    </Carousel.Caption>
+                </Carousel.Item>
+                <Carousel.Item className="CaruselItem">
+                    <img width="900px" className="CarouselImage" src="/2.png" />
+                    <Carousel.Caption>
+                        <h3>Получатель</h3>
+                    </Carousel.Caption>
+                </Carousel.Item>
+            </Carousel>
         </div>
     );
 }
