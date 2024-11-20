@@ -1,5 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
+import { RecipientData } from "../modules/Types";
+
+interface RecipientsPageState {
+    pageData: RecipientData[];
+    recipientNameQuery: string;
+}
+
+export interface RootState {
+    ourData: RecipientsPageState;
+}
 
 const recipientsPageSlice = createSlice({
     name: "recipientsPageData",
@@ -19,9 +29,10 @@ const recipientsPageSlice = createSlice({
     },
 });
 
-export const usePageData = () => useSelector((state) => state.ourData.pageData);
+export const usePageData = () =>
+    useSelector((state: RootState) => state.ourData.pageData);
 export const useRecipientNameQuery = () =>
-    useSelector((state) => state.ourData.recipientNameQuery);
+    useSelector((state: RootState) => state.ourData.recipientNameQuery);
 
 export const {
     setPageData: setPageDataAction,
