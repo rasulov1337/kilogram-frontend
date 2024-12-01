@@ -399,6 +399,23 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         ...params,
       }),
   };
+  session = {
+    /**
+     * @description Gets session info
+     *
+     * @tags session
+     * @name SessionList
+     * @request GET:/session/
+     * @secure
+     */
+    sessionList: (params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/session/`,
+        method: "GET",
+        secure: true,
+        ...params,
+      }),
+  };
   signin = {
     /**
      * @description Signs the user in

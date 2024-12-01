@@ -17,6 +17,24 @@
     gap: 50px;
 }
 
+.header__dropdown {
+    font-family: Inter;
+}
+
+.dropdown-toggle {
+    background-color: #fff !important;
+    color: #000 !important;
+}
+
+.dropdown-toggle:active {
+    color: #000 !important;
+    background-color: #ebedf0 !important;
+}
+
+.header__dropdown__item {
+    background-color: #fff !important;
+}
+
 @media (max-width: 990px) {
     .header {
         padding: 15px 40px;

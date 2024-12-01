@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { dateToString } from "../../modules/Utils";
 import { api } from "../../modules/ApiClient";
 import "./TransfersPage.css";
+import { BreadCrumbs } from "../../components/BreadCrumbs/BreadCrumbs";
+import { ROUTE_LABELS, ROUTES } from "../../modules/Routes";
 
 interface Transfer {
     id: number;
@@ -40,6 +42,17 @@ export default function TransfersPage() {
 
     return (
         <div className="transfers">
+            <div className="container">
+                <BreadCrumbs
+                    crumbs={[
+                        {
+                            label: ROUTE_LABELS.TRANSFERS,
+                            path: ROUTES.TRANSFERS,
+                        },
+                    ]}
+                />
+            </div>
+
             <h1>Отправки файлов</h1>
             <div className="transfers__filters d-flex w-100 justify-content-between gap-5">
                 <Form.Group className="mb-3 d-flex flex-column flex-fill">
