@@ -15,12 +15,25 @@ const Header = () => {
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="ms-auto text-white fs-5">
+                        <Nav className="ms-auto text-white fs-5 d-flex gap-3">
                             <Link
                                 className="text-white header__link"
                                 to={ROUTES.RECIPIENTS}
                             >
                                 Получатели
+                            </Link>
+                            <Link
+                                className="text-white header__link"
+                                to={ROUTES.TRANSFERS}
+                            >
+                                Отправки файлов
+                            </Link>
+
+                            <Link
+                                className="text-white header__link"
+                                to={ROUTES.TRANSFERS}
+                            >
+                                Выход
                             </Link>
                         </Nav>
                     </Navbar.Collapse>

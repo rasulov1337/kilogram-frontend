@@ -15,3 +15,21 @@ export function getCookie(name: string) {
     }
     return cookieValue;
 }
+
+export function dateToString(dateAsString?: string) {
+    if (dateAsString === undefined) {
+        return "-";
+    }
+
+    const date = new Date(dateAsString);
+
+    return date.toLocaleString("ru-RU", {
+        month: "2-digit",
+        day: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+    });
+}
