@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "./UserCard.css";
+import { Button } from "react-bootstrap";
 
 interface UserCardData {
     id: number;
@@ -11,17 +12,20 @@ interface UserCardData {
 const UserCard = ({ id, avatar, name, phone }: UserCardData) => {
     return (
         <>
-            <Link to={"" + id} className="user-card">
+            <div className="user-card">
                 <img
-                    className="avatar"
+                    className="user-card__avatar"
                     src={avatar || "/kilogram-frontend/default.png"}
                     alt="User"
                 />
-                <div className="user-info">
-                    <div className="name">{name}</div>
+                <div className="user-card__user-info">
+                    <Link className="user-card__name" to={"" + id}>
+                        {name}
+                    </Link>
                     <p className="grey-text">{phone}</p>
                 </div>
-            </Link>
+                <Button className="user-card__add-btn">Добавить</Button>
+            </div>
         </>
     );
 };

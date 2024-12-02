@@ -2,7 +2,7 @@
     gap: 25px;
     margin: 20px 0;
     width: 240px;
-    height: 390px;
+    height: 420px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -23,7 +23,7 @@
     height: var(--avatar-size-sm);
 }
 
-.avatar {
+.user-card__avatar {
     border-radius: 50%;
     background-color: white;
     object-fit: cover;
@@ -33,7 +33,7 @@
     height: var(--avatar-size);
 }
 
-.user-info {
+.user-card__user-info {
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -42,11 +42,20 @@
     padding: 0 20px;
 }
 
-.name {
+.user-card__name {
     font-size: 32px;
     font-weight: 500;
     overflow: break-word;
     overflow-wrap: break-word;
+}
+
+.user-card__name:hover {
+    text-decoration: underline;
+}
+
+.user-card__add-btn {
+    padding: 4px 13px !important;
+    height: min-content !important;
 }
 
 .grey-text {

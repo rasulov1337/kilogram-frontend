@@ -4,6 +4,8 @@ import "./SigninPage.css";
 import { api } from "../../modules/ApiClient";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUsernameAction } from "../../slices/HeaderSlice";
 
 export default function SigninPage() {
     const [login, setLogin] = useState<string>("");
@@ -11,12 +13,14 @@ export default function SigninPage() {
     const [validated, setValidated] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const signin = (username: string, password: string) => {
         api.signin
             .signinCreate({ username, password }, { withCredentials: true })
             .then(() => {
                 setError(null);
+                dispatch(setUsernameAction(username));
                 navigate("/");
             })
             .catch(() => {

@@ -1,23 +1,28 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../modules/Routes";
 import { api } from "../../modules/ApiClient";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Button, Dropdown } from "react-bootstrap";
 
 import "./Header.css";
 import { getCookie } from "../../modules/Utils";
+import { setUsernameAction, useUsername } from "../../slices/HeaderSlice";
+import { useDispatch } from "react-redux";
 
 export default function Header() {
-    const [username, setUsername] = useState("");
+    const username = useUsername();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         api.session.sessionList({ withCredentials: true }).then(({ data }) => {
-            setUsername(data["username"]);
+            dispatch(setUsernameAction(data["username"]));
         });
     }, []);
+
+    const navigate = useNavigate();
 
     const onSignoutBtnClick = () => {
         api.signout
@@ -28,7 +33,8 @@ export default function Header() {
                 withCredentials: true,
             })
             .then(() => {
-                setUsername("");
+                dispatch(setUsernameAction(null));
+                navigate(ROUTES.HOME);
             });
     };
 

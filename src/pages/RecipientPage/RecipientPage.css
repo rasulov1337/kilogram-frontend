@@ -1,3 +1,13 @@
+.avatar {
+    border-radius: 50%;
+    background-color: white;
+    object-fit: cover;
+    object-position: center;
+
+    width: var(--avatar-size);
+    height: var(--avatar-size);
+}
+
 .avatar-offset {
     margin-top: -90px;
     outline: 4px solid #222;
