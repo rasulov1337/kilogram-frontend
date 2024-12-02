@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import recipientsPageDataReducer from "./slices/FilterSlice";
+import recipientsPageDataReducer from "./slices/RecipientsPageSlice";
 import usernameReducer from "./slices/HeaderSlice";
 
 export default configureStore({

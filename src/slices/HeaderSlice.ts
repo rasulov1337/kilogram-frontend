@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../modules/Types";
 import { useSelector } from "react-redux";
 
-const recipientsPageSlice = createSlice({
+const headerSlice = createSlice({
     name: "headerSlice",
     // в initialState мы указываем начальное состояние нашего глобального хранилища
     initialState: {
@@ -21,7 +21,7 @@ export const useUsername = () =>
 
 // Слайс генерирует действия, которые экспортируются отдельно
 // Действия генерируются автоматически из имен ключей редьюсеров
-export const { setUsername: setUsernameAction } = recipientsPageSlice.actions;
+export const { setUsername: setUsernameAction } = headerSlice.actions;
 
 // По умолчанию экспортируется редьюсер, сгенерированный слайсом
-export default recipientsPageSlice.reducer;
+export default headerSlice.reducer;

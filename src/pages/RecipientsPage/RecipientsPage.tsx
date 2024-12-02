@@ -10,8 +10,9 @@ import {
     setRecipientNameQuery,
     usePageData,
     useRecipientNameQuery,
-} from "../../slices/FilterSlice";
+} from "../../slices/RecipientsPageSlice";
 import { useDispatch } from "react-redux";
+import DraftProcessInfo from "../../components/DraftProcessInfo/DraftProcessInfo";
 
 interface DraftTransferInfo {
     draftId: number | null;
@@ -61,6 +62,7 @@ const RecipientsPage = () => {
             <div className="container">
                 <BreadCrumbs crumbs={[{ label: ROUTE_LABELS.RECIPIENTS }]} />
             </div>
+            <DraftProcessInfo />
 
             <div className="block users-block">
                 <form
