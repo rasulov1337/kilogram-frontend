@@ -7,6 +7,7 @@ export const ROUTES = {
     SIGNUP: "/signup",
     SIGNOUT: "/signout",
     TRANSFERS: "/transfers",
+    TRANSFER: "/transfers/:id",
 };
 
 export type RouteKeyType = keyof typeof ROUTES;
@@ -18,5 +19,6 @@ export const ROUTE_LABELS: { [key in RouteKeyType]: string } = {
     SIGNUP: "Регистрация",
     SIGNOUT: "Выход",
     TRANSFERS: "Отправки файлов",
+    TRANSFER: "Отправка файлов",
     PROFILE: "Профиль",
 };

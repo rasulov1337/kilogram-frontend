@@ -1,0 +1,80 @@
+.draft-transfer-page__recipient {
+    padding: 10px 0;
+}
+
+.draft-transfer-page__recipient__del-btn {
+    margin-top: 10px;
+    height: auto !important;
+    padding: 5px 15px !important;
+    vertical-align: center;
+}
+
+.draft-transfer-page__recipient__save-btn {
+    margin-top: 10px;
+    height: auto !important;
+    padding: 5px 15px !important;
+    vertical-align: center;
+    margin-right: 20px;
+}
+
+.avatar-sm {
+    border-radius: 50%;
+    background-color: white;
+
+    width: var(--avatar-size-sm);
+    height: var(--avatar-size-sm);
+    flex-shrink: 0;
+    object-fit: cover;
+}
+
+.user-card-long {
+    text-align: left;
+    margin: 8px auto;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 60px;
+    position: relative;
+    gap: 20px;
+}
+
+.user-info-long {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.user-info-long a:hover {
+    text-decoration: underline;
+}
+
+.last-message-sent-date-text {
+    font-size: 14px;
+    color: #999;
+    position: absolute;
+    right: 50px;
+    top: 0;
+}
+
+.user-card button {
+    float: right;
+    margin-right: 10px;
+    padding: 10px 18px;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.draft-transfer-page__recipient__name {
+    font-size: 22px;
+}
+
+.hr {
+    margin: 0 auto;
+    width: 90%;
+    background-color: rgba(255, 255, 255, 0.425);
+    height: 1px;
+    box-sizing: border-box;
+}

@@ -95,53 +95,6 @@ a:hover {
     font-style: normal;
 }
 
-.user-card-long {
-    text-align: left;
-    margin: 20px auto;
-    width: 100%;
-    height: auto;
-    display: flex;
-    justify-content: flex-start;
-    padding: 10px 60px;
-    position: relative;
-    gap: 20px;
-}
-
-.user-info-long {
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.user-info-long a:hover {
-    text-decoration: underline;
-}
-
-.last-message-sent-date-text {
-    font-size: 14px;
-    color: #999;
-    position: absolute;
-    right: 50px;
-    top: 0;
-}
-
-.user-card button {
-    float: right;
-    margin-right: 10px;
-    padding: 10px 18px;
-    font-size: 17px;
-    cursor: pointer;
-}
-
-.hr {
-    margin: 0 auto;
-    width: 90%;
-    background-color: rgba(255, 255, 255, 0.425);
-    height: 1px;
-    box-sizing: content-box;
-}
-
 #current-order-full {
     display: flex;
     flex-direction: row;

@@ -13,16 +13,6 @@
     border: 1px solid #363738;
 }
 
-.avatar-sm {
-    width: 120px;
-
-    border-radius: 50%;
-    background-color: white;
-
-    width: var(--avatar-size-sm);
-    height: var(--avatar-size-sm);
-}
-
 .user-card__avatar {
     border-radius: 50%;
     background-color: white;

@@ -92,11 +92,11 @@ const recipientsPageSlice = createSlice({
 });
 
 export const useRecipients = () =>
-    useSelector((state: RootState) => state.pageData.recipients);
+    useSelector((state: RootState) => state.recipientsPage.recipients);
 export const useDraftOrderInfo = () =>
-    useSelector((state: RootState) => state.pageData.draftOrderInfo);
+    useSelector((state: RootState) => state.recipientsPage.draftOrderInfo);
 export const useRecipientNameQuery = () =>
-    useSelector((state: RootState) => state.pageData.recipientNameQuery);
+    useSelector((state: RootState) => state.recipientsPage.recipientNameQuery);
 
 export const { actions: recipientsPageActions } = recipientsPageSlice;
 
