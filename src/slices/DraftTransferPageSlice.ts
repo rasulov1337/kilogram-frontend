@@ -1,9 +1,10 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../modules/Types";
 import { useSelector } from "react-redux";
 import { api } from "../modules/ApiClient";
-import { getCookie, getCsrfToken } from "../modules/Utils";
+import { getCsrfToken } from "../modules/Utils";
 import { RecipientData } from "./RecipientsPageSlice";
+import { ContentType } from "../api/Api";
 
 interface TransferData {
     id: number;
@@ -17,7 +18,7 @@ interface TransferData {
     status: string;
 }
 
-interface RecipientsDataInsideTransfer extends RecipientData {
+export interface RecipientsDataInsideTransfer extends RecipientData {
     comment: string;
 }
 
@@ -139,11 +140,46 @@ export const formTransfer = createAsyncThunk<void, string>(
     }
 );
 
+export const uploadFile = createAsyncThunk<
+    void,
+    { transferId: string; file: File }
+>("draft/uploadFile", async ({ transferId, file }, { dispatch }) => {
+    const formData = new FormData();
+    formData.append("file_obj", file);
+
+    try {
+        const response = await api.transfers.transfersUpdate(
+            transferId,
+            formData,
+            {
+                withCredentials: true,
+                headers: {
+                    "X-CSRFToken": getCsrfToken(),
+                },
+                type: ContentType.FormData,
+            }
+        );
+        return response.data.file;
+    } catch (error) {
+        console.error(`Error while sending file with id: ${transferId}`);
+        throw error;
+    }
+});
+
+interface TransferState {
+    file: string | null;
+    recipients: RecipientsDataInsideTransfer[];
+}
+
 const draftTransferSlice = createSlice({
     name: "draftTransferSlice",
     // в initialState мы указываем начальное состояние нашего глобального хранилища
     initialState: {
         recipients: [] as RecipientsDataInsideTransfer[],
+        file: null,
+    } as {
+        file: string | null;
+        recipients: RecipientsDataInsideTransfer[];
     },
     // Редьюсеры в слайсах мутируют состояние и ничего не возвращают наружу
     reducers: {
@@ -169,14 +205,21 @@ const draftTransferSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(getTransferData.fulfilled, (state, { payload }) => {
-            state.recipients = payload.recipients;
-        });
+        builder
+            .addCase(getTransferData.fulfilled, (state, { payload }) => {
+                state.recipients = payload.recipients;
+                state.file = payload.file;
+            })
+            .addCase(uploadFile.fulfilled, (state, { payload }) => {
+                state.file = payload as string;
+            });
     },
 });
 
 export const useRecipients = () =>
     useSelector((state: RootState) => state.draftTransferPage.recipients);
+export const useFile = () =>
+    useSelector((state: RootState) => state.draftTransferPage.file);
 
 // Слайс генерирует действия, которые экспортируются отдельно
 // Действия генерируются автоматически из имен ключей редьюсеров

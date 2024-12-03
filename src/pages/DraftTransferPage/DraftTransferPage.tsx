@@ -1,21 +1,24 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import {
     deleteTransfer,
     draftTransferActions,
     formTransfer,
     getTransferData,
+    RecipientsDataInsideTransfer,
     removeFromTransfer,
     updateComment,
+    uploadFile,
+    useFile,
 } from "../../slices/DraftTransferPageSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppDispatch } from "../../modules/Types";
 import { useRecipients } from "../../slices/DraftTransferPageSlice";
 import { Spinner } from "react-bootstrap";
-import { RecipientData } from "../../slices/RecipientsPageSlice";
 import "./DraftTransferPage.css";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../modules/Routes";
+import Form from "react-bootstrap/Form";
 
 export default function DraftTransferPage() {
     const dispatch = useDispatch<AppDispatch>();
@@ -28,9 +31,11 @@ export default function DraftTransferPage() {
 
     useEffect(() => {
         dispatch(getTransferData(id));
-    }, [dispatch]);
+    }, []);
 
     const recipients = useRecipients() as RecipientsDataInsideTransfer[];
+    const file = useFile();
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     if (!recipients) {
         return (
@@ -68,7 +73,25 @@ export default function DraftTransferPage() {
             .catch((error) => alert(error));
     };
 
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0] as null | undefined | File;
+        if (!file) {
+            return;
+        }
+
+        dispatch(
+            uploadFile({
+                transferId: id,
+                file: file,
+            })
+        );
+    };
+
     const onFormTransferClick = () => {
+        if (!file) {
+            alert("Пожалуйста, загрузите файл!");
+            return;
+        }
         dispatch(formTransfer(id)).then(() => navigate(ROUTES.RECIPIENTS));
     };
 
@@ -151,18 +174,14 @@ export default function DraftTransferPage() {
             </div>
 
             <div className="block block-padding">
-                <h1>Файлы</h1>
+                <h1>Файл</h1>
 
-                {/* {#        <div className="center-btn-wrapper">#}
-            {#            <button className="transparent-btn">#}
-            {#                <svg width="69" height="69" viewBox="0 0 69 69" fill="none" xmlns="http://www.w3.org/2000/svg">#}
-            {#                    <path d="M34.5 14.375V54.625M14.375 34.5H54.625" stroke="#509AED" strokeWidth="4"#}
-            {#                          strokeLinecap="round" stroke-linejoin="round"></path>#}
-            {#                </svg>#}
-            {##}
-            {#                Загрузить новый файл#}
-            {#            </button>#}
-            {#        </div>#} */}
+                <Form.Control
+                    type="file"
+                    className="bg-dark text-white"
+                    onChange={handleFileChange}
+                    ref={fileInputRef}
+                />
 
                 <div className="file-card">
                     <div className="svg-container">
@@ -184,11 +203,9 @@ export default function DraftTransferPage() {
                     </div>
 
                     <div className="d-flex flex-column">
-                        <span className="filename">Название файла</span>
-                        <div>
-                            <span className="grey-text">Какой-то файл</span>
-                            <span className="grey-text">{4}</span>
-                        </div>
+                        <span className="filename">
+                            {file ? file : "Файл не выбран!"}
+                        </span>
                     </div>
                 </div>
             </div>
