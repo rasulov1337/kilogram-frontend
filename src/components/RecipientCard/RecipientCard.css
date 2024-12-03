@@ -2,7 +2,7 @@
     gap: 25px;
     margin: 20px 0;
     width: 240px;
-    height: 420px;
+    height: 460px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -56,6 +56,18 @@
 .user-card__add-btn {
     padding: 4px 13px !important;
     height: min-content !important;
+}
+
+.user-card__add-btn--disabled {
+    background-color: #464646 !important;
+    color: #848484 !important;
+    cursor: not-allowed !important;
+    pointer-events: none;
+}
+
+.user-card__add-btn--disabled:hover {
+    background-color: #464646 !important;
+    cursor: not-allowed !important;
 }
 
 .grey-text {

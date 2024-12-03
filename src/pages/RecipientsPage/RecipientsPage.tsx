@@ -1,61 +1,39 @@
 import "./RecipientsPage.css";
-import UserCard from "../../components/UserCard/UserCard";
-import ApiClient from "../../modules/ApiClient";
-import { ReactElement, useEffect } from "react";
+import RecipientCard from "../../components/RecipientCard/RecipientCard";
+import { useEffect } from "react";
 import { Spinner } from "react-bootstrap";
 import { BreadCrumbs } from "../../components/BreadCrumbs/BreadCrumbs";
 import { ROUTE_LABELS } from "../../modules/Routes";
 import {
-    setPageDataAction,
-    setRecipientNameQuery,
-    usePageData,
     useRecipientNameQuery,
+    useRecipients,
+    recipientsPageActions,
+    getRecipientsData,
 } from "../../slices/RecipientsPageSlice";
 import { useDispatch } from "react-redux";
 import DraftProcessInfo from "../../components/DraftProcessInfo/DraftProcessInfo";
-
-interface DraftTransferInfo {
-    draftId: number | null;
-    draftRecipientsLen: number;
-}
-
-interface RecipientCardData {
-    id: number;
-    name: string;
-    avatar: string;
-    phone: string;
-}
-
-type DataArray = (RecipientCardData | DraftTransferInfo)[];
+import { AppDispatch } from "../../modules/Types";
 
 const RecipientsPage = () => {
-    const pageData: DataArray = usePageData();
+    const recipients = useRecipients();
     const recipientNameQuery = useRecipientNameQuery();
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
 
     useEffect(() => {
-        (async () => {
-            const { data } = await ApiClient.getRecipients(
+        dispatch(
+            getRecipientsData(
                 recipientNameQuery ? recipientNameQuery : undefined
-            );
-            dispatch(setPageDataAction(data));
-        })();
-    }, [recipientNameQuery]);
+            )
+        );
+    }, [dispatch, recipientNameQuery]);
 
-    if (!pageData) {
+    if (!recipients) {
         return (
             <div className="loading-screen">
                 <Spinner animation="border"></Spinner>
             </div>
         );
     }
-
-    // const draftTransferInfo = pageData.at(-1) as DraftTransferInfo;
-    const recipientsData = pageData.slice(0, -1) as RecipientCardData[];
-    const cards: ReactElement[] = [];
-    recipientsData.forEach((recipient, i) => {
-        cards.push(<UserCard key={i} {...recipient}></UserCard>);
-    });
 
     return (
         <>
@@ -76,7 +54,11 @@ const RecipientsPage = () => {
                         const recipientName = formData.get(
                             "recipient-name"
                         ) as string;
-                        dispatch(setRecipientNameQuery(recipientName));
+                        dispatch(
+                            recipientsPageActions.setRecipientNameQuery(
+                                recipientName
+                            )
+                        );
                     }}
                 >
                     <input
@@ -91,7 +73,15 @@ const RecipientsPage = () => {
                     />
                 </form>
 
-                <div className="grid-block">{cards}</div>
+                <div className="grid-block">
+                    {recipients.map((recipientData, i) => (
+                        <RecipientCard
+                            key={i}
+                            {...recipientData}
+                            disabled={false}
+                        ></RecipientCard>
+                    ))}
+                </div>
             </div>
         </>
     );

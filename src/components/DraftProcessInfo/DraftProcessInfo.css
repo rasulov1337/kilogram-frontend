@@ -1,0 +1,44 @@
+.draft-process-info__heading {
+    font-size: 22px;
+}
+
+.draft-process-info__process-sm-info {
+    width: fit-content;
+    max-width: 200px;
+    text-wrap: normal;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.draft-process-info--disabled {
+    pointer-events: none;
+    background: #222222a9;
+}
+
+.draft-process-info {
+    margin: 30px auto;
+    background: #222222;
+    border-radius: 33px;
+    max-width: 60%;
+    min-height: auto;
+    padding: 15px 30px;
+    cursor: pointer;
+}
+
+#current-order {
+    position: absolute;
+    top: 70px;
+    right: 30px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+#current-order svg {
+    float: left;
+}

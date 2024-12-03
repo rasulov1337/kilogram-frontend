@@ -3,39 +3,28 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../modules/Routes";
-import { api } from "../../modules/ApiClient";
 import { useEffect } from "react";
 import { Button, Dropdown } from "react-bootstrap";
 
 import "./Header.css";
-import { getCookie } from "../../modules/Utils";
-import { setUsernameAction, useUsername } from "../../slices/HeaderSlice";
+import { useUsername, getHeaderData, signOut } from "../../slices/HeaderSlice";
 import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../modules/Types";
 
 export default function Header() {
     const username = useUsername();
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
 
     useEffect(() => {
-        api.session.sessionList({ withCredentials: true }).then(({ data }) => {
-            dispatch(setUsernameAction(data["username"]));
-        });
-    }, []);
+        dispatch(getHeaderData());
+    }, [dispatch]);
 
     const navigate = useNavigate();
 
     const onSignoutBtnClick = () => {
-        api.signout
-            .signoutCreate({
-                headers: {
-                    "X-CSRFToken": getCookie("csrftoken"),
-                },
-                withCredentials: true,
-            })
-            .then(() => {
-                dispatch(setUsernameAction(null));
-                navigate(ROUTES.HOME);
-            });
+        dispatch(signOut()).then(() => {
+            navigate(ROUTES.HOME);
+        });
     };
 
     return (

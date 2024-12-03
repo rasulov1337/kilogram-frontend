@@ -16,6 +16,10 @@ export function getCookie(name: string) {
     return cookieValue;
 }
 
+export function getCsrfToken() {
+    return getCookie("csrftoken");
+}
+
 export function dateToString(dateAsString?: string) {
     if (dateAsString === undefined) {
         return "-";

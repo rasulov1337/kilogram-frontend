@@ -142,38 +142,12 @@ a:hover {
     box-sizing: content-box;
 }
 
-.mini-block {
-    margin: 30px auto;
-    background: #222222;
-    border-radius: 33px;
-    max-width: 60%;
-    min-height: auto;
-    padding: 15px 30px;
-    cursor: pointer;
-}
-
-#current-order {
-    position: absolute;
-    top: 70px;
-    right: 30px;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-}
-
 #current-order-full {
     display: flex;
     flex-direction: row;
     gap: 50px;
     align-items: center;
     padding: 20px 70px;
-}
-
-#current-order svg {
-    float: left;
 }
 
 .blue-text {
@@ -238,16 +212,6 @@ a:hover {
 
 .p-m {
     padding: 30px;
-}
-
-.process-sm-info {
-    max-width: 250px !important;
-    text-wrap: normal;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 20px;
 }
 
 .input-comment {
