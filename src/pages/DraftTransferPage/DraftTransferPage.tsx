@@ -1,12 +1,14 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
+    deleteTransfer,
     draftTransferActions,
+    formTransfer,
     getTransferData,
     removeFromTransfer,
     updateComment,
 } from "../../slices/DraftTransferPageSlice";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AppDispatch } from "../../modules/Types";
 import { useRecipients } from "../../slices/DraftTransferPageSlice";
 import { Spinner } from "react-bootstrap";
@@ -18,6 +20,8 @@ import { ROUTES } from "../../modules/Routes";
 export default function DraftTransferPage() {
     const dispatch = useDispatch<AppDispatch>();
     const { id } = useParams();
+    const navigate = useNavigate();
+
     if (!id) {
         throw new Error("no id passed!");
     }
@@ -25,6 +29,7 @@ export default function DraftTransferPage() {
     useEffect(() => {
         dispatch(getTransferData(id));
     }, [dispatch]);
+
     const recipients = useRecipients() as RecipientsDataInsideTransfer[];
 
     if (!recipients) {
@@ -55,6 +60,16 @@ export default function DraftTransferPage() {
                 comment: comment,
             })
         );
+    };
+
+    const onDeleteTransferClick = () => {
+        dispatch(deleteTransfer(id))
+            .then(() => navigate(ROUTES.RECIPIENTS))
+            .catch((error) => alert(error));
+    };
+
+    const onFormTransferClick = () => {
+        dispatch(formTransfer(id)).then(() => navigate(ROUTES.RECIPIENTS));
     };
 
     return (
@@ -179,10 +194,12 @@ export default function DraftTransferPage() {
             </div>
 
             <div className="buttons-container">
-                <form action="{% url 'del-transfer' transfer.id %}">
-                    <button className="grey-btn">Удалить</button>
-                </form>
-                <button className="btn">Отправить файлы</button>
+                <button className="grey-btn" onClick={onDeleteTransferClick}>
+                    Удалить
+                </button>
+                <button className="btn" onClick={onFormTransferClick}>
+                    Сформировать отправку
+                </button>
             </div>
         </>
     );

@@ -100,6 +100,45 @@ export const updateComment = createAsyncThunk<
     }
 );
 
+export const deleteTransfer = createAsyncThunk<void, string>(
+    "draft/self-delete",
+    async (transferId) => {
+        try {
+            const response = await api.transfers.transfersDelete(transferId, {
+                withCredentials: true,
+                headers: {
+                    "X-CSRFToken": getCsrfToken(),
+                },
+            });
+            console.log(response);
+        } catch (error) {
+            console.error(
+                `Error while deleting transfer with id: ${transferId}`
+            );
+            throw error;
+        }
+    }
+);
+
+export const formTransfer = createAsyncThunk<void, string>(
+    "draft/form",
+    async (transferId) => {
+        try {
+            await api.transfers.transfersFormUpdate(transferId, {
+                withCredentials: true,
+                headers: {
+                    "X-CSRFToken": getCsrfToken(),
+                },
+            });
+        } catch (error) {
+            console.error(
+                `Error while forming transfer with id: ${transferId}`
+            );
+            throw error;
+        }
+    }
+);
+
 const draftTransferSlice = createSlice({
     name: "draftTransferSlice",
     // в initialState мы указываем начальное состояние нашего глобального хранилища

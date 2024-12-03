@@ -78,3 +78,21 @@
     height: 1px;
     box-sizing: border-box;
 }
+
+.grey-btn {
+    background: transparent !important;
+    color: white !important;
+    border: none;
+    padding: 8px 15px !important;
+
+    font-weight: 500;
+    font-style: normal;
+    border-radius: 11px;
+
+    transition: all 0.2s ease-in-out;
+}
+
+.grey-btn:hover {
+    background: #313131 !important;
+    color: white !important;
+}

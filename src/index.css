@@ -67,22 +67,6 @@ a:hover {
     padding: 15px 10px;
 }
 
-.grey-btn {
-    background: transparent;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-
-    font-optical-sizing: auto;
-    font-weight: 500;
-    font-style: normal;
-    border-radius: 11px;
-}
-
-.grey-btn:hover {
-    background: #313131;
-}
-
 .btn {
     background: #d9d9d9;
     color: black;
