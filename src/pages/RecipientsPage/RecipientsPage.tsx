@@ -49,7 +49,6 @@ const RecipientsPage = () => {
         );
     }
 
-    // const draftTransferInfo = pageData.at(-1) as DraftTransferInfo;
     const recipientsData = pageData.slice(0, -1) as RecipientCardData[];
     const cards: ReactElement[] = [];
     recipientsData.forEach((recipient, i) => {

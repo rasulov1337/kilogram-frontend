@@ -5,6 +5,7 @@ import { ROUTE_LABELS, ROUTES } from "../../modules/Routes";
 import { BreadCrumbs } from "../../components/BreadCrumbs/BreadCrumbs";
 import { Spinner } from "react-bootstrap";
 import "./RecipientPage.css";
+import { DEST_IMG, DEST_ROOT } from "../../target_config";
 
 interface RecipientData {
     id: number;
@@ -26,6 +27,7 @@ const RecipientPage = () => {
         if (!id) return;
         ApiClient.getRecipient(id).then((data) => setPageData(data));
     }, [id]);
+    
 
     if (!pageData) {
         return (
@@ -36,6 +38,11 @@ const RecipientPage = () => {
     }
 
     const { avatar, name, desc, birthdate, city, phone, uni } = pageData;
+
+    let avatarSrc = DEST_ROOT + './default.png'
+    if (avatar) {
+        avatarSrc = DEST_IMG + avatar
+    }
 
     return (
         <>
@@ -54,7 +61,7 @@ const RecipientPage = () => {
             <div className="block block-padding user-main-info">
                 <img
                     className="avatar avatar-offset"
-                    src={avatar || "/kilogram-frontend/default.png"}
+                    src={avatarSrc}
                     alt="User"
                 />
                 <div className="user-main-info__text">

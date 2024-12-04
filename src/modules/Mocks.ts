@@ -16,7 +16,7 @@ export const RECIPIENTS_MOCK = [
         city: "Окленд",
         phone: "+878989897977",
         uni: "New York University",
-        avatar: "https://www.mercurynews.com/wp-content/uploads/2017/02/mahershala-2.jpg?w=1024&h=681",
+        avatar: "/images/mahershala-2.webp",
     },
     {
         name: "Анна Иванова",
@@ -35,7 +35,7 @@ export const RECIPIENTS_MOCK = [
         city: "Санкт-Петербург",
         phone: "+7 888 444-56-78",
         uni: "Санкт-Петербургский политехнический университет Петра Великого",
-        avatar: "https://avatars.mds.yandex.net/i?id=44fe45e152d5ca314d3e1ac6a6b0f020_l-8338702-images-thumbs&n=13",
+        avatar: "/images/i.webp",
     },
     {
         draftId: null,

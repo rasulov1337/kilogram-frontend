@@ -6,6 +6,7 @@ import RecipientsPage from "./pages/RecipientsPage/RecipientsPage";
 import StartPage from "./pages/StartPage/StartPage";
 import { useEffect } from "react";
 import { invoke } from "@tauri-apps/api/core";
+import { DEST_ROOT } from "./target_config";
 
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
       }, [])
       
     return (
-        <BrowserRouter basename="/kilogram-frontend/">
+        <BrowserRouter basename={DEST_ROOT}>
             <Header></Header>
 
             <Routes>

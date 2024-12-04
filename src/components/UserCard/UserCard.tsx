@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "./UserCard.css";
+import { DEST_IMG, DEST_ROOT } from "../../target_config";
 
 interface UserCardData {
     id: number;
@@ -9,12 +10,16 @@ interface UserCardData {
 }
 
 const UserCard = ({ id, avatar, name, phone }: UserCardData) => {
+    let avatarSrc = DEST_ROOT + './default.png'
+    if (avatar) {
+        avatarSrc = DEST_IMG + avatar
+    }
     return (
         <>
             <Link to={"" + id} className="user-card">
                 <img
                     className="avatar"
-                    src={avatar || "/kilogram-frontend/default.png"}
+                    src={avatarSrc}
                     alt="User"
                 />
                 <div className="user-info">

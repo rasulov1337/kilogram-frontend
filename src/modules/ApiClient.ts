@@ -1,9 +1,10 @@
 import "./Ajax";
 import Ajax from "./Ajax";
 import { RECIPIENTS_MOCK } from "./Mocks";
+import { DEST_API } from "../target_config";
 
 export default class ApiClient {
-    static BASE_URL = "/api/";
+    static BASE_URL = DEST_API ? DEST_API : "/api/";
     static async getRecipients(name?: string) {
         try {
             let url = this.BASE_URL + "recipients/";
