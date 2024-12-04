@@ -7,7 +7,7 @@ import StartPage from "./components/StartPage/StartPage";
 
 function App() {
     return (
-        <BrowserRouter basename="/kilogram-frontend">
+        <BrowserRouter basename="/kilogram-frontend/">
             <Header></Header>
 
             <Routes>
