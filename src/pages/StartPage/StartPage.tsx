@@ -16,13 +16,13 @@ export default function StartPage() {
                 <Row className="text-center">
                     <Carousel className="Carousel">
                         <Carousel.Item className="CaruselItem">
-                            <img className="CarouselImage" src="/1.png" />
+                            <img className="CarouselImage" src="./1.png" />
                             <Carousel.Caption>
                                 <h3>Список получаталей</h3>
                             </Carousel.Caption>
                         </Carousel.Item>
                         <Carousel.Item className="CaruselItem">
-                            <img className="CarouselImage" src="/2.png" />
+                            <img className="CarouselImage" src="./2.png" />
                             <Carousel.Caption>
                                 <h3>Получатель</h3>
                             </Carousel.Caption>
