@@ -9,10 +9,12 @@
 
 .start-page__title {
     font-size: 35px;
+    margin: 0 30px;
 }
 
 .start-page__desc {
     font-size: 20px;
+    margin: 0 30px;
 }
 
 .Carousel {
@@ -28,4 +30,25 @@
 .carousel-control-prev,
 .carousel-control-next {
     display: none;
+}
+
+@media (max-width: 700px) {
+    .start-page__title {
+        width: 90%;
+        margin: 0 auto 10px;
+        font-size: 35px;
+    }
+
+    .start-page__desc {
+        text-align: left;
+        width: 90%;
+        margin: 0 auto;
+        font-size: 20px;
+    }
+
+    .CarouselImage {
+        width: 90%;
+        border-radius: 5px;
+        border: 1px #99999954 dashed;
+    }
 }
