@@ -9,12 +9,12 @@ export default defineConfig({
         host: "0.0.0.0",
         proxy: {
             "/api": {
-                target: "http://localhost:8000",
+                target: "http://192.168.119.37:8000",
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/api/, "/"),
             },
             "/images/": {
-                target: "http://localhost:9000",
+                target: "http://192.168.119.37:9000",
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/images/, "/images/"),
             },
