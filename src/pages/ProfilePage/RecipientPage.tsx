@@ -3,7 +3,7 @@ import "./RecipientPage.css";
 import { useEffect, useState } from "react";
 import ApiClient from "../../modules/ApiClient";
 import { ROUTE_LABELS, ROUTES } from "../../modules/Routes";
-import { BreadCrumbs } from "../BreadCrumbs/BreadCrumbs";
+import { BreadCrumbs } from "../../components/BreadCrumbs/BreadCrumbs";
 import { Spinner } from "react-bootstrap";
 
 interface RecipientData {

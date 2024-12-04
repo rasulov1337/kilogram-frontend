@@ -14,3 +14,18 @@
 .start-page__desc {
     font-size: 20px;
 }
+
+.Carousel {
+    margin-top: 50px;
+}
+
+.CarouselImage {
+    width: 500px;
+    border-radius: 5px;
+    border: 1px #99999954 dashed;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    display: none;
+}
