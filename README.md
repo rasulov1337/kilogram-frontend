@@ -21,3 +21,4 @@
 -   [Redux, адаптивность & PWA (лаб 6)](https://github.com/rasulov1337/kilogram-frontend/tree/redux)
 -   [Tauri (лаб 6 )](https://github.com/rasulov1337/kilogram-frontend/tree/tauri)
 -   [Github Pages (лаб 6)](https://github.com/rasulov1337/kilogram-frontend/tree/gh-pages)
+-   [Завершение интерфейса пользователя в React (лаб 7)](https://github.com/rasulov1337/kilogram-frontend/tree/auth)
