@@ -1,9 +1,9 @@
 import "./RecipientsPage.css";
-import UserCard from "../UserCard/UserCard";
+import UserCard from "../../components/UserCard/UserCard";
 import ApiClient from "../../modules/ApiClient";
 import { ReactElement, useEffect } from "react";
 import { Spinner } from "react-bootstrap";
-import { BreadCrumbs } from "../BreadCrumbs/BreadCrumbs";
+import { BreadCrumbs } from "../../components/BreadCrumbs/BreadCrumbs";
 import { ROUTE_LABELS } from "../../modules/Routes";
 import {
     setPageDataAction,
