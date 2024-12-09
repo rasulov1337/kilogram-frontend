@@ -1,14 +1,12 @@
 import "./RecipientsPage.css";
 import UserCard from "../../components/UserCard/UserCard";
 import ApiClient from "../../modules/ApiClient";
-import { ReactElement, useEffect } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { BreadCrumbs } from "../../components/BreadCrumbs/BreadCrumbs";
 import { ROUTE_LABELS } from "../../modules/Routes";
 import {
-    setPageDataAction,
     setRecipientNameQuery,
-    usePageData,
     useRecipientNameQuery,
 } from "../../slices/FilterSlice";
 import { useDispatch } from "react-redux";
@@ -28,16 +26,16 @@ interface RecipientCardData {
 type DataArray = (RecipientCardData | DraftTransferInfo)[];
 
 const RecipientsPage = () => {
-    const pageData: DataArray = usePageData();
     const recipientNameQuery = useRecipientNameQuery();
     const dispatch = useDispatch();
+    const [pageData, setPageData] = useState<DataArray | null>(null);
 
     useEffect(() => {
         (async () => {
             const data = await ApiClient.getRecipients(
                 recipientNameQuery ? recipientNameQuery : undefined
             );
-            dispatch(setPageDataAction(data));
+            setPageData(data);
         })();
     }, [recipientNameQuery]);
 
@@ -49,7 +47,6 @@ const RecipientsPage = () => {
         );
     }
 
-    // const draftTransferInfo = pageData.at(-1) as DraftTransferInfo;
     const recipientsData = pageData.slice(0, -1) as RecipientCardData[];
     const cards: ReactElement[] = [];
     recipientsData.forEach((recipient, i) => {
