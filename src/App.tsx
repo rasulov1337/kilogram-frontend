@@ -12,7 +12,7 @@ import DraftTransferPage from "./pages/DraftTransferPage/DraftTransferPage";
 
 function App() {
     return (
-        <BrowserRouter basename="/kilogram-frontend">
+        <BrowserRouter basename="/kilogram-frontend/">
             <Header></Header>
 
             <Routes>

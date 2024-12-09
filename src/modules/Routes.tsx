@@ -6,7 +6,7 @@ export const ROUTES = {
     SIGNIN: "/signin",
     SIGNUP: "/signup",
     SIGNOUT: "/signout",
-    TRANSFERS: "/transfers",
+    TRANSFERS: "/transfers/",
     TRANSFER: "/transfers/:id",
 };
 
