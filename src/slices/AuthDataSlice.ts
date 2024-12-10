@@ -6,6 +6,7 @@ import { getCookie } from "../modules/Utils";
 import { recipientsPageActions } from "./RecipientsPageSlice";
 import { transfersPageActions } from "./TransfersPageSlice";
 import { profilePageActions } from "./ProfilePageSlice";
+import { draftTransferActions } from "./DraftTransferPageSlice";
 
 export const signIn = createAsyncThunk<
     any,
@@ -42,6 +43,7 @@ export const signOut = createAsyncThunk("auth/signout", async (_, thunkAPI) => {
     thunkAPI.dispatch(recipientsPageActions.setRecipientNameQuery(null));
     thunkAPI.dispatch(transfersPageActions.reset());
     thunkAPI.dispatch(profilePageActions.reset());
+    thunkAPI.dispatch(draftTransferActions.reset());
 });
 
 const authSlice = createSlice({

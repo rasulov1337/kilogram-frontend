@@ -201,8 +201,8 @@ const draftTransferSlice = createSlice({
             state.id = payload;
         },
 
-        reset(state) {
-            state = draftTransferSlice.getInitialState();
+        reset(): any {
+            return draftTransferSlice.getInitialState();
         },
     },
     extraReducers: (builder) => {

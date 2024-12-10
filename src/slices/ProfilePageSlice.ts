@@ -46,8 +46,8 @@ const profilePageSlice = createSlice({
             state.isFetchingData = payload;
         },
 
-        reset(state) {
-            state = profilePageSlice.getInitialState();
+        reset(): any {
+            return profilePageSlice.getInitialState();
         },
     },
 });
