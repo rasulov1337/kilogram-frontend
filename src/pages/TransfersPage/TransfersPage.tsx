@@ -1,10 +1,11 @@
-import { Form, InputGroup, Table } from "react-bootstrap";
+import { Form, Spinner, Table } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { dateToString } from "../../modules/Utils";
 import { api } from "../../modules/ApiClient";
 import "./TransfersPage.css";
 import { BreadCrumbs } from "../../components/BreadCrumbs/BreadCrumbs";
 import { ROUTE_LABELS, ROUTES } from "../../modules/Routes";
+import { useNavigate } from "react-router-dom";
 
 interface Transfer {
     id: number;
@@ -22,6 +23,7 @@ export default function TransfersPage() {
     const [status, setStatus] = useState("");
     const [formedAtRangeBegin, setRangeBegin] = useState("");
     const [formedAtRangeEnd, setRangeEnd] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
         let formedAtRange;
@@ -39,6 +41,18 @@ export default function TransfersPage() {
             )
             .then(({ data }) => setTransfers(data as unknown as Transfer[]));
     }, [status, formedAtRangeEnd, formedAtRangeBegin]);
+
+    const handleRowClick = (transferId: number) => {
+        navigate(`/transfers/${transferId}`);
+    };
+
+    if (!transfers) {
+        return (
+            <div className="loading-screen">
+                <Spinner animation="border"></Spinner>
+            </div>
+        );
+    }
 
     return (
         <div className="transfers">
@@ -106,7 +120,10 @@ export default function TransfersPage() {
                             }[t.status];
 
                             return (
-                                <tr key={t.id}>
+                                <tr
+                                    key={t.id}
+                                    onClick={() => handleRowClick(t.id)}
+                                >
                                     <td>{t.id}</td>
                                     <td>{statusText}</td>
                                     <td>{dateToString(t.created_at)}</td>
