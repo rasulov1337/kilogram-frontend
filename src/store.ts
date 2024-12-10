@@ -4,11 +4,13 @@ import authDataReducer from "./slices/AuthDataSlice";
 import transferPageReducer from "./slices/DraftTransferPageSlice";
 import transfersPageSlice from "./slices/TransfersPageSlice";
 import profilePageSlice from "./slices/ProfilePageSlice";
+import authPageSlice from "./slices/AuthPageSlice";
 
 export default configureStore({
     reducer: combineReducers({
         recipientsPage: recipientsPageDataReducer,
         auth: authDataReducer,
+        authPage: authPageSlice,
         transferPage: transferPageReducer,
         transfersPage: transfersPageSlice,
         profilePage: profilePageSlice,

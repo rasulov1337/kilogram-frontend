@@ -8,45 +8,45 @@ import { useDispatch } from "react-redux";
 import { authActions, signIn } from "../../slices/AuthDataSlice";
 import { Spinner } from "react-bootstrap";
 import { AppDispatch } from "../../modules/Types";
+import {
+    authPageActions,
+    useAuthPageError,
+    useAuthPageState,
+    useAuthPageValidated,
+    usePassword,
+    useUsername,
+} from "../../slices/AuthPageSlice";
 
 export default function SigninPage() {
-    const [login, setLogin] = useState<string>("");
-    const [password, setPassword] = useState("");
-    const [validated, setValidated] = useState(false);
-    const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
-    const [isSignUp, setisSignUp] = useState<boolean>(false);
     const [fetchingData, setFetchingData] = useState<boolean>(false);
 
+    const username = useUsername();
+    const password = usePassword();
+    const isSignUp = useAuthPageState() === "signup";
+    const error = useAuthPageError();
+    const validated = useAuthPageValidated();
+
     const signin = () => {
-        dispatch(signIn({ username: login, password: password }))
+        if (!username || !password) return;
+
+        dispatch(signIn({ username: username, password: password }))
             .then(() => {
-                setError(null);
+                dispatch(authPageActions.setError(null));
                 navigate("/");
             })
             .catch(() => {
-                setError("Неверный логин или пароль");
+                dispatch(authPageActions.setError("Неверный логин или пароль"));
                 setFetchingData(false);
             });
-        // api.signin
-        //     .signinCreate({ username, password }, { withCredentials: true })
-        //     .then(() => {
-        //         setError(null);
-        //         dispatch(authActions.setUsername(username));
-        //         navigate("/");
-        //     })
-        //     .catch(() => {
-        //         setError("Неверный логин или пароль");
-        //         setFetchingData(false);
-        //     });
     };
 
     const signup = (username: string, password: string) => {
         api.user
-            .userCreate({ username, password }, { withCredentials: true })
+            .userCreate({ username, password }, { withCredentials: false })
             .then(() => {
-                setError(null);
+                dispatch(authPageActions.setError(null));
                 dispatch(authActions.setUsername(username));
                 navigate("/");
             })
@@ -54,23 +54,35 @@ export default function SigninPage() {
                 setFetchingData(false);
                 switch (err.response.status) {
                     case 400:
-                        setError("Логин уже используется другим пользователем");
+                        dispatch(
+                            authPageActions.setError(
+                                "Логин уже используется другим пользователем"
+                            )
+                        );
                         break;
                     case 401:
-                        setError("Неверный логин или пароль");
+                        dispatch(
+                            authPageActions.setError(
+                                "Неверный логин или пароль"
+                            )
+                        );
                         break;
                     case 500:
-                        setError("Внутрення ошибка сервера");
+                        dispatch(
+                            authPageActions.setError("Внутрення ошибка сервера")
+                        );
                         break;
                     default:
-                        setError("Неизвестная ошибка");
+                        dispatch(
+                            authPageActions.setError("Неизвестная ошибка")
+                        );
                         break;
                 }
             });
     };
 
     const handleAuthChange = () => {
-        setisSignUp(!isSignUp);
+        dispatch(authPageActions.toggleAuthPageState());
     };
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -83,13 +95,13 @@ export default function SigninPage() {
             setFetchingData(true);
 
             if (isSignUp) {
-                signup(login, password);
+                signup(username, password);
             } else {
                 signin();
             }
         }
 
-        setValidated(true);
+        dispatch(authPageActions.setValidated(true));
     };
 
     return (
@@ -115,8 +127,12 @@ export default function SigninPage() {
                     <Form.Control
                         type="text"
                         placeholder="Введите логин"
-                        value={login}
-                        onChange={(e) => setLogin(e.target.value)}
+                        value={username}
+                        onChange={(e) =>
+                            dispatch(
+                                authPageActions.setUsername(e.target.value)
+                            )
+                        }
                         required
                         minLength={2}
                     />
@@ -130,7 +146,11 @@ export default function SigninPage() {
                         type="password"
                         placeholder="Введите пароль"
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={(e) =>
+                            dispatch(
+                                authPageActions.setPassword(e.target.value)
+                            )
+                        }
                         required
                     />
                     <Form.Control.Feedback type="invalid">
