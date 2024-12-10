@@ -1,32 +1,26 @@
-import { useEffect, useState } from "react";
-import { api } from "../../modules/ApiClient";
+import { FormEvent } from "react";
 import { ROUTE_LABELS, ROUTES } from "../../modules/Routes";
 import { BreadCrumbs } from "../../components/BreadCrumbs/BreadCrumbs";
 import { Button, Form, Spinner } from "react-bootstrap";
 import "./ProfilePage.css";
 
-interface RecipientData {
-    name: string;
-    password: string;
-}
+import {
+    usePassword,
+    useUsername,
+    profilePageActions,
+    useIsFetchingData,
+    updateProfile,
+} from "../../slices/ProfilePageSlice";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../modules/Types";
 
 export default function ProfilePage() {
-    const [pageData, setPageData] = useState<RecipientData>();
+    const username = useUsername();
+    const password = usePassword();
+    const isFetchingData = useIsFetchingData();
+    const dispatch = useDispatch<AppDispatch>();
 
-    useEffect(() => {
-        api.session
-            .sessionList({ withCredentials: true })
-            .then((sessionData) => {
-                console.log(sessionData["data"]);
-                api.user
-                    .userRead(parseInt(sessionData.data["user_id"]), {
-                        withCredentials: true,
-                    })
-                    .then(({ data }) => setPageData(data));
-            });
-    }, []);
-
-    if (!pageData) {
+    if (isFetchingData) {
         return (
             <div className="loading-screen">
                 <Spinner animation="border"></Spinner>
@@ -34,7 +28,24 @@ export default function ProfilePage() {
         );
     }
 
-    const { username, password } = pageData;
+    const handleFormSubmit = async (e: FormEvent) => {
+        e.preventDefault();
+
+        try {
+            const resultAction = await dispatch(
+                updateProfile({ username, password })
+            );
+            if (!resultAction.error) {
+                dispatch(profilePageActions.setUsername(""));
+                dispatch(profilePageActions.setPassword(""));
+                alert("Обновление данных выполнено успешно");
+            } else {
+                alert("Ошибка при обновлении данных");
+            }
+        } catch {
+            alert("Ошибка при обновлении данных");
+        }
+    };
 
     return (
         <div className="profile-page">
@@ -49,23 +60,43 @@ export default function ProfilePage() {
                 />
             </div>
 
-            <Form>
+            <Form onSubmit={handleFormSubmit}>
                 <Form.Group
                     className="mb-3"
                     controlId="exampleForm.ControlInput1"
                 >
                     <Form.Label>Логин</Form.Label>
-                    <Form.Control type="text" value={username} />
+                    <Form.Control
+                        type="text"
+                        value={username}
+                        placeholder="Новый логин"
+                        onChange={(e) =>
+                            dispatch(
+                                profilePageActions.setUsername(e.target.value)
+                            )
+                        }
+                    />
                 </Form.Group>
                 <Form.Group
                     className="mb-3"
                     controlId="exampleForm.ControlTextarea1"
                 >
-                    <Form.Label>Пароль</Form.Label>
-                    <Form.Control type="password" />
+                    <Form.Label>Новый Пароль</Form.Label>
+                    <Form.Control
+                        type="password"
+                        placeholder="Новый пароль"
+                        value={password}
+                        onChange={(e) =>
+                            dispatch(
+                                profilePageActions.setPassword(e.target.value)
+                            )
+                        }
+                    />
                 </Form.Group>
 
-                <Button variant="primary">Изменить</Button>
+                <Button variant="primary" type="submit">
+                    Изменить
+                </Button>
             </Form>
         </div>
     );
