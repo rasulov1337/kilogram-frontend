@@ -2,10 +2,18 @@ import { Form, Spinner, Table } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { dateToString } from "../../modules/Utils";
 import { api } from "../../modules/ApiClient";
-import "./TransfersPage.css";
 import { BreadCrumbs } from "../../components/BreadCrumbs/BreadCrumbs";
 import { ROUTE_LABELS, ROUTES } from "../../modules/Routes";
 import { useNavigate } from "react-router-dom";
+import {
+    transfersPageActions,
+    useFormedAtDateFrom,
+    useFormedAtDateTo,
+    useStatus,
+} from "../../slices/TransfersPageSlice";
+import { useDispatch } from "react-redux";
+
+import "./TransfersPage.css";
 
 interface Transfer {
     id: number;
@@ -20,10 +28,11 @@ interface Transfer {
 
 export default function TransfersPage() {
     const [transfers, setTransfers] = useState<Transfer[]>([]);
-    const [status, setStatus] = useState("");
-    const [formedAtRangeBegin, setRangeBegin] = useState("");
-    const [formedAtRangeEnd, setRangeEnd] = useState("");
+    const status = useStatus();
+    const formedAtRangeBegin = useFormedAtDateFrom();
+    const formedAtRangeEnd = useFormedAtDateTo();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         let formedAtRange;
@@ -73,29 +82,42 @@ export default function TransfersPage() {
                     <Form.Label>Статус</Form.Label>
                     <Form.Select
                         onChange={(e) => {
-                            setStatus(e.target.value);
+                            dispatch(
+                                transfersPageActions.setStatus(e.target.value)
+                            );
                         }}
+                        value={status}
                     >
                         <option value="">Любой статус</option>
-                        <option value="FRM">FRM</option>
-                        <option value="COM">COM</option>
-                        <option value="REJ">REJ</option>
+                        <option value="FRM">Сформирована</option>
+                        <option value="COM">Завершена</option>
+                        <option value="REJ">Отклонена</option>
                     </Form.Select>
                 </Form.Group>
 
                 <Form.Group className="mb-3 d-flex  flex-column flex-fill">
-                    <Form.Label>Дата начала</Form.Label>
+                    <Form.Label>Дата оформления: начало диапазона</Form.Label>
                     <Form.Control
                         type="date"
-                        onChange={(e) => setRangeBegin(e.target.value)}
+                        value={formedAtRangeBegin}
+                        onChange={(e) =>
+                            dispatch(
+                                transfersPageActions.setDateFrom(e.target.value)
+                            )
+                        }
                     />
                 </Form.Group>
 
                 <Form.Group className="mb-3 d-flex  flex-column flex-fill">
-                    <Form.Label>Дата окончания</Form.Label>
+                    <Form.Label>Дата оформления: конец диапазона</Form.Label>
                     <Form.Control
                         type="date"
-                        onChange={(e) => setRangeEnd(e.target.value)}
+                        value={formedAtRangeEnd}
+                        onChange={(e) =>
+                            dispatch(
+                                transfersPageActions.setDateTo(e.target.value)
+                            )
+                        }
                     />
                 </Form.Group>
             </div>
