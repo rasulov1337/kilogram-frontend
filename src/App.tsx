@@ -4,7 +4,7 @@ import RecipientPage from "./pages/RecipientPage/RecipientPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import RecipientsPage from "./pages/RecipientsPage/RecipientsPage";
 import StartPage from "./pages/StartPage/StartPage";
-import SigninPage from "./pages/SigninPage/SigninPage";
+import SigninPage from "./pages/AuthPage/AuthPage";
 import { ROUTES } from "./modules/Routes";
 import TransfersPage from "./pages/TransfersPage/TransfersPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";

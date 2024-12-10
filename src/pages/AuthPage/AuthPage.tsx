@@ -1,6 +1,6 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import "./SigninPage.css";
+import "./AuthPage.css";
 import { api } from "../../modules/ApiClient";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,7 @@ export default function SigninPage() {
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [isSignUp, setisSignUp] = useState<boolean>(false);
 
     const signin = (username: string, password: string) => {
         api.signin
@@ -28,6 +29,36 @@ export default function SigninPage() {
             });
     };
 
+    const signup = (username: string, password: string) => {
+        api.user
+            .userCreate({ username, password }, { withCredentials: true })
+            .then(() => {
+                setError(null);
+                dispatch(setUsernameAction(username));
+                navigate("/");
+            })
+            .catch((err) => {
+                switch (err.response.status) {
+                    case 400:
+                        setError("Логин уже используется другим пользователем");
+                        break;
+                    case 401:
+                        setError("Неверный логин или пароль");
+                        break;
+                    case 500:
+                        setError("Внутрення ошибка сервера");
+                        break;
+                    default:
+                        setError("Неизвестная ошибка");
+                        break;
+                }
+            });
+    };
+
+    const handleAuthChange = () => {
+        setisSignUp(!isSignUp);
+    };
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         e.stopPropagation();
@@ -35,7 +66,11 @@ export default function SigninPage() {
         const form = e.currentTarget;
 
         if (form.checkValidity()) {
-            signin(login, password);
+            if (isSignUp) {
+                signup(login, password);
+            } else {
+                signin(login, password);
+            }
         }
 
         setValidated(true);
@@ -48,7 +83,9 @@ export default function SigninPage() {
                 src="logo.png"
                 alt="KiloGram Logo"
             ></img>
-            <p className="auth__header-text">Вход в KiloGram</p>
+            <p className="auth__header-text">
+                {!isSignUp ? "Вход" : "Регистрация"} в KiloGram
+            </p>
             {error && <p className="auth__error">{error}</p>}
 
             <Form
@@ -87,10 +124,13 @@ export default function SigninPage() {
 
                 <div className="auth__buttons">
                     <Button className="auth__signin-btn" type="submit">
-                        Войти
+                        {isSignUp ? "Зарегистрироваться" : "Войти"}
                     </Button>
-                    <Button className="auth__signup-btn">
-                        Зарегистрироваться
+                    <Button
+                        className="auth__signup-btn"
+                        onClick={handleAuthChange}
+                    >
+                        {!isSignUp ? "Зарегистрироваться" : "Войти"}
                     </Button>
                 </div>
             </Form>
