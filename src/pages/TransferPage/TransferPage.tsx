@@ -21,12 +21,14 @@ import "./TransferPage.css";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../modules/Routes";
 import Form from "react-bootstrap/Form";
+import { useLoggedIn } from "../../slices/AuthDataSlice";
 
 export default function DraftTransferPage() {
     const dispatch = useDispatch<AppDispatch>();
     const { id } = useParams();
     const storedId = useId();
     const navigate = useNavigate();
+    const loggedIn = useLoggedIn();
 
     if (!id) {
         throw new Error("no id passed!");
@@ -45,6 +47,14 @@ export default function DraftTransferPage() {
         dispatch(draftTransferActions.setId(id));
         dispatch(getTransferData(id));
     }, [id, dispatch]);
+
+    if (!loggedIn) {
+        return (
+            <h2 style={{ textAlign: "center", marginTop: "30vh" }}>
+                Страница недоступна. Пожалуйста, войдите в аккаунт
+            </h2>
+        );
+    }
 
     if (!recipients) {
         return (
