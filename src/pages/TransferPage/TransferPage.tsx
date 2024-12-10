@@ -145,7 +145,11 @@ export default function DraftTransferPage() {
                                     <input
                                         type="text"
                                         className="input-comment"
-                                        placeholder="Добавить комментарий..."
+                                        placeholder={
+                                            editable
+                                                ? "Добавить комментарий..."
+                                                : "..."
+                                        }
                                         value={data.comment ? data.comment : ""}
                                         disabled={!editable}
                                         onChange={(e) =>
