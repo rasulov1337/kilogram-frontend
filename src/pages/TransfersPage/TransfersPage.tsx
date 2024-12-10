@@ -1,55 +1,38 @@
 import { Form, Spinner, Table } from "react-bootstrap";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { dateToString } from "../../modules/Utils";
-import { api } from "../../modules/ApiClient";
 import { BreadCrumbs } from "../../components/BreadCrumbs/BreadCrumbs";
 import { ROUTE_LABELS, ROUTES } from "../../modules/Routes";
 import { useNavigate } from "react-router-dom";
 import {
+    getTransfers,
     transfersPageActions,
     useFormedAtDateFrom,
     useFormedAtDateTo,
     useStatus,
+    useTransfers,
 } from "../../slices/TransfersPageSlice";
 import { useDispatch } from "react-redux";
 
 import "./TransfersPage.css";
-
-interface Transfer {
-    id: number;
-    moderator: string;
-    file: string;
-    created_at: string;
-    completed_at: string;
-    formed_at: string;
-    sender: string;
-    status: string;
-}
+import { AppDispatch } from "../../modules/Types";
 
 export default function TransfersPage() {
-    const [transfers, setTransfers] = useState<Transfer[]>([]);
+    const transfers = useTransfers();
     const status = useStatus();
     const formedAtRangeBegin = useFormedAtDateFrom();
     const formedAtRangeEnd = useFormedAtDateTo();
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
 
     useEffect(() => {
-        let formedAtRange;
+        let formedAtDateRange;
         if (formedAtRangeBegin && formedAtRangeEnd) {
-            formedAtRange = `${formedAtRangeBegin},${formedAtRangeEnd}`;
+            formedAtDateRange = `${formedAtRangeBegin},${formedAtRangeEnd}`;
         }
 
-        api.transfers
-            .transfersList(
-                {
-                    status,
-                    "formed-at-range": formedAtRange,
-                },
-                { withCredentials: true }
-            )
-            .then(({ data }) => setTransfers(data as unknown as Transfer[]));
-    }, [status, formedAtRangeEnd, formedAtRangeBegin]);
+        dispatch(getTransfers({ status, formedAtDateRange }));
+    }, [dispatch, formedAtRangeBegin, formedAtRangeEnd, status]);
 
     const handleRowClick = (transferId: number) => {
         navigate(`/transfers/${transferId}`);
