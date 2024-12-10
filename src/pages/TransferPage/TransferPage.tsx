@@ -117,7 +117,11 @@ export default function DraftTransferPage() {
                 </svg>
 
                 <div>
-                    <h2>Текущий процесс отправки файлов</h2>
+                    <h2>
+                        {editable
+                            ? "Текущий процесс отправки файлов"
+                            : `Отправка файлов #${id}`}
+                    </h2>
                     <p className="grey-text">
                         Число получателей: {recipients.length}
                     </p>
