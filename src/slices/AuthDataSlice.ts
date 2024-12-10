@@ -32,18 +32,29 @@ export const signIn = createAsyncThunk<
 });
 
 export const signOut = createAsyncThunk("auth/signout", async (_, thunkAPI) => {
-    const response = await api.signout.signoutCreate({
-        headers: {
-            "X-CSRFToken": getCookie("csrftoken"),
-        },
-        withCredentials: true,
-    });
+    try {
+        const response = await api.signout.signoutCreate({
+            headers: {
+                "X-CSRFToken": getCookie("csrftoken"),
+            },
+            withCredentials: true,
+        });
 
-    // if successful
-    thunkAPI.dispatch(recipientsPageActions.setRecipientNameQuery(null));
-    thunkAPI.dispatch(transfersPageActions.reset());
-    thunkAPI.dispatch(profilePageActions.reset());
-    thunkAPI.dispatch(draftTransferActions.reset());
+        // if successful
+        if (response.status === 200) {
+            thunkAPI.dispatch(
+                recipientsPageActions.setRecipientNameQuery(null)
+            );
+            thunkAPI.dispatch(transfersPageActions.reset());
+            thunkAPI.dispatch(profilePageActions.reset());
+            thunkAPI.dispatch(draftTransferActions.reset());
+        }
+        return response.data;
+    } catch (error) {
+        return thunkAPI.rejectWithValue(
+            error.response?.data || "Ошибка при выходе из аккаунта"
+        );
+    }
 });
 
 const authSlice = createSlice({
