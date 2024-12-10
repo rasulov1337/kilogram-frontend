@@ -10,6 +10,7 @@ import {
     updateComment,
     uploadFile,
     useFile,
+    useTransferStatus,
 } from "../../slices/DraftTransferPageSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppDispatch } from "../../modules/Types";
@@ -34,6 +35,7 @@ export default function DraftTransferPage() {
     }, []);
 
     const recipients = useRecipients() as RecipientsDataInsideTransfer[];
+    const editable = useTransferStatus() === "DRF";
     const file = useFile();
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -145,6 +147,7 @@ export default function DraftTransferPage() {
                                         className="input-comment"
                                         placeholder="Добавить комментарий..."
                                         value={data.comment ? data.comment : ""}
+                                        disabled={!editable}
                                         onChange={(e) =>
                                             onCommentChange(
                                                 data.id,
@@ -153,14 +156,20 @@ export default function DraftTransferPage() {
                                         }
                                     />
                                     <button
-                                        className="btn draft-transfer-page__recipient__save-btn"
+                                        className={
+                                            "btn recipient__save-btn" +
+                                            (!editable ? " hidden" : "")
+                                        }
                                         onClick={() => onSaveBtnClick(data.id)}
                                     >
                                         Сохранить
                                     </button>
 
                                     <button
-                                        className="btn draft-transfer-page__recipient__del-btn"
+                                        className={
+                                            "btn recipient__del-btn" +
+                                            (!editable ? " hidden" : "")
+                                        }
                                         onClick={() => onDelBtnClick(data.id)}
                                     >
                                         Удалить
@@ -178,7 +187,9 @@ export default function DraftTransferPage() {
 
                 <Form.Control
                     type="file"
-                    className="bg-dark text-white"
+                    className={
+                        "bg-dark text-white" + (editable ? "" : " hidden")
+                    }
                     onChange={handleFileChange}
                     ref={fileInputRef}
                 />
@@ -210,7 +221,7 @@ export default function DraftTransferPage() {
                 </div>
             </div>
 
-            <div className="buttons-container">
+            <div className={"buttons-container" + (!editable ? " hidden" : "")}>
                 <button className="grey-btn" onClick={onDeleteTransferClick}>
                     Удалить
                 </button>

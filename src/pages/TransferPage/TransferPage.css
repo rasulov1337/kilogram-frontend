@@ -2,19 +2,23 @@
     padding: 10px 0;
 }
 
-.draft-transfer-page__recipient__del-btn {
+.recipient__del-btn {
     margin-top: 10px;
     height: auto !important;
     padding: 5px 15px !important;
     vertical-align: center;
 }
 
-.draft-transfer-page__recipient__save-btn {
+.recipient__save-btn {
     margin-top: 10px;
     height: auto !important;
     padding: 5px 15px !important;
     vertical-align: center;
     margin-right: 20px;
+}
+
+.hidden {
+    display: none;
 }
 
 .avatar-sm {

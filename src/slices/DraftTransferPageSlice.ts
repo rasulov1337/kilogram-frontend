@@ -176,10 +176,12 @@ const draftTransferSlice = createSlice({
     // в initialState мы указываем начальное состояние нашего глобального хранилища
     initialState: {
         recipients: [] as RecipientsDataInsideTransfer[],
+        transferStatus: null,
         file: null,
     } as {
         file: string | null;
         recipients: RecipientsDataInsideTransfer[];
+        transferStatus: "DRF" | "REJ" | "DEL" | "FRM" | "COM" | null;
     },
     // Редьюсеры в слайсах мутируют состояние и ничего не возвращают наружу
     reducers: {
@@ -206,20 +208,23 @@ const draftTransferSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(getTransferData.fulfilled, (state, { payload }) => {
+            .addCase(getTransferData.fulfilled, (state, { payload }: any) => {
                 state.recipients = payload.recipients;
                 state.file = payload.file;
+                state.transferStatus = payload.status;
             })
-            .addCase(uploadFile.fulfilled, (state, { payload }) => {
+            .addCase(uploadFile.fulfilled, (state, { payload }: any) => {
                 state.file = payload as string;
             });
     },
 });
 
 export const useRecipients = () =>
-    useSelector((state: RootState) => state.draftTransferPage.recipients);
+    useSelector((state: RootState) => state.transferPage.recipients);
 export const useFile = () =>
-    useSelector((state: RootState) => state.draftTransferPage.file);
+    useSelector((state: RootState) => state.transferPage.file);
+export const useTransferStatus = () =>
+    useSelector((state: RootState) => state.transferPage.transferStatus);
 
 // Слайс генерирует действия, которые экспортируются отдельно
 // Действия генерируются автоматически из имен ключей редьюсеров
