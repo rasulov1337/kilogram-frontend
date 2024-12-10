@@ -15,7 +15,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { AppDispatch } from "../../modules/Types";
 import { useRecipients } from "../../slices/DraftTransferPageSlice";
 import { Spinner } from "react-bootstrap";
-import "./DraftTransferPage.css";
+import "./TransferPage.css";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../modules/Routes";
 import Form from "react-bootstrap/Form";

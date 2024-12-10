@@ -8,7 +8,7 @@ import SigninPage from "./pages/SigninPage/SigninPage";
 import { ROUTES } from "./modules/Routes";
 import TransfersPage from "./pages/TransfersPage/TransfersPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
-import DraftTransferPage from "./pages/DraftTransferPage/DraftTransferPage";
+import DraftTransferPage from "./pages/TransferPage/TransferPage";
 
 function App() {
     return (
