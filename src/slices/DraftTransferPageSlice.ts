@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../modules/Types";
 import { useSelector } from "react-redux";
 import { api } from "../modules/ApiClient";
@@ -22,13 +22,13 @@ export interface RecipientsDataInsideTransfer extends RecipientData {
     comment: string;
 }
 
-export const getTransferData = createAsyncThunk<void, string>(
+export const getTransferData = createAsyncThunk<TransferData, string>(
     "draft/getData",
     async (id: string) => {
         const { data } = await api.transfers.transfersRead(id, {
             withCredentials: true,
         });
-        return data;
+        return data as unknown as TransferData;
     }
 );
 
@@ -69,19 +69,18 @@ export const updateComment = createAsyncThunk<
         try {
             const state = getState() as RootState;
 
-            const recipientIndex = state.draftTransferPage.recipients.findIndex(
+            const recipientIndex = state.transferPage.recipients.findIndex(
                 (recipient) => recipient.id === recipientId
             );
 
-            console.log(state.draftTransferPage.recipients, recipientIndex);
+            console.log(state.transferPage.recipients, recipientIndex);
 
             await api.transfers.transfersRecipientsUpdate(
                 transferId,
                 "" + recipientId,
                 {
                     comment:
-                        state.draftTransferPage.recipients[recipientIndex]
-                            .comment,
+                        state.transferPage.recipients[recipientIndex].comment,
                 },
                 {
                     withCredentials: true,
@@ -166,22 +165,14 @@ export const uploadFile = createAsyncThunk<
     }
 });
 
-interface TransferState {
-    file: string | null;
-    recipients: RecipientsDataInsideTransfer[];
-}
-
 const draftTransferSlice = createSlice({
     name: "draftTransferSlice",
     // в initialState мы указываем начальное состояние нашего глобального хранилища
     initialState: {
+        id: "0",
         recipients: [] as RecipientsDataInsideTransfer[],
-        transferStatus: null,
-        file: null,
-    } as {
-        file: string | null;
-        recipients: RecipientsDataInsideTransfer[];
-        transferStatus: "DRF" | "REJ" | "DEL" | "FRM" | "COM" | null;
+        transferStatus: null as "DRF" | "REJ" | "DEL" | "FRM" | "COM" | null,
+        file: null as string | null,
     },
     // Редьюсеры в слайсах мутируют состояние и ничего не возвращают наружу
     reducers: {
@@ -204,6 +195,10 @@ const draftTransferSlice = createSlice({
             } else {
                 console.warn(`Recipient with ID ${recipientId} not found`);
             }
+        },
+
+        setId(state, { payload }) {
+            state.id = payload;
         },
 
         reset(state) {
@@ -229,6 +224,8 @@ export const useFile = () =>
     useSelector((state: RootState) => state.transferPage.file);
 export const useTransferStatus = () =>
     useSelector((state: RootState) => state.transferPage.transferStatus);
+export const useId = () =>
+    useSelector((state: RootState) => state.transferPage.id);
 
 // Слайс генерирует действия, которые экспортируются отдельно
 // Действия генерируются автоматически из имен ключей редьюсеров

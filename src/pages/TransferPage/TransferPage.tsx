@@ -10,6 +10,7 @@ import {
     updateComment,
     uploadFile,
     useFile,
+    useId,
     useTransferStatus,
 } from "../../slices/DraftTransferPageSlice";
 import { useNavigate, useParams } from "react-router-dom";
@@ -24,20 +25,26 @@ import Form from "react-bootstrap/Form";
 export default function DraftTransferPage() {
     const dispatch = useDispatch<AppDispatch>();
     const { id } = useParams();
+    const storedId = useId();
     const navigate = useNavigate();
 
     if (!id) {
         throw new Error("no id passed!");
     }
 
-    useEffect(() => {
-        dispatch(getTransferData(id));
-    }, []);
-
     const recipients = useRecipients() as RecipientsDataInsideTransfer[];
     const editable = useTransferStatus() === "DRF";
     const file = useFile();
     const fileInputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        if (id === storedId) {
+            return;
+        }
+
+        dispatch(draftTransferActions.setId(id));
+        dispatch(getTransferData(id));
+    }, [id, dispatch]);
 
     if (!recipients) {
         return (
