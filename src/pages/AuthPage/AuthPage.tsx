@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUsernameAction } from "../../slices/HeaderSlice";
+import { Spinner } from "react-bootstrap";
 
 export default function SigninPage() {
     const [login, setLogin] = useState<string>("");
@@ -15,6 +16,7 @@ export default function SigninPage() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [isSignUp, setisSignUp] = useState<boolean>(false);
+    const [fetchingData, setFetchingData] = useState<boolean>(false);
 
     const signin = (username: string, password: string) => {
         api.signin
@@ -26,6 +28,7 @@ export default function SigninPage() {
             })
             .catch(() => {
                 setError("Неверный логин или пароль");
+                setFetchingData(false);
             });
     };
 
@@ -38,6 +41,7 @@ export default function SigninPage() {
                 navigate("/");
             })
             .catch((err) => {
+                setFetchingData(false);
                 switch (err.response.status) {
                     case 400:
                         setError("Логин уже используется другим пользователем");
@@ -66,6 +70,8 @@ export default function SigninPage() {
         const form = e.currentTarget;
 
         if (form.checkValidity()) {
+            setFetchingData(true);
+
             if (isSignUp) {
                 signup(login, password);
             } else {
@@ -124,7 +130,9 @@ export default function SigninPage() {
 
                 <div className="auth__buttons">
                     <Button className="auth__signin-btn" type="submit">
-                        {isSignUp ? "Зарегистрироваться" : "Войти"}
+                        {fetchingData && <Spinner animation="border"></Spinner>}
+                        {!fetchingData &&
+                            (isSignUp ? "Зарегистрироваться" : "Войти")}
                     </Button>
                     <Button
                         className="auth__signup-btn"
