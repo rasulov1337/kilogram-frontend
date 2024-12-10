@@ -28,7 +28,7 @@ const profilePageSlice = createSlice({
     name: "profilePageSlice",
 
     initialState: {
-        username: "",
+        username: null as string | null,
         password: "",
         isFetchingData: false,
     },
@@ -44,6 +44,10 @@ const profilePageSlice = createSlice({
 
         setIsFetchingData(state, { payload }) {
             state.isFetchingData = payload;
+        },
+
+        reset(state) {
+            state = profilePageSlice.getInitialState();
         },
     },
 });

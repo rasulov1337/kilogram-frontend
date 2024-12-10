@@ -4,6 +4,7 @@ import "./RecipientCard.css";
 import { addRecipientToDraft } from "../../slices/RecipientsPageSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../modules/Types";
+import { useUsername } from "../../slices/AuthDataSlice";
 
 interface RecipientCardData {
     id: number;
@@ -38,15 +39,11 @@ export default function RecipientCard({
                     </Link>
                     <p className="grey-text">{phone}</p>
                 </div>
-                <Button
-                    className={
-                        "user-card__add-btn" +
-                        (disabled ? " user-card__add-btn--disabled" : "")
-                    }
-                    onClick={onAddClick}
-                >
-                    Добавить
-                </Button>
+                {!disabled && (
+                    <Button className="user-card__add-btn" onClick={onAddClick}>
+                        Добавить
+                    </Button>
+                )}
             </div>
         </>
     );

@@ -51,6 +51,10 @@ const transfersSlice = createSlice({
         setDateTo(state, { payload }) {
             state.dateTo = payload;
         },
+
+        reset(state) {
+            state = transfersSlice.getInitialState();
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(getTransfers.fulfilled, (state, { payload }: any) => {

@@ -13,11 +13,13 @@ import {
 import { useDispatch } from "react-redux";
 import DraftProcessInfo from "../../components/DraftProcessInfo/DraftProcessInfo";
 import { AppDispatch } from "../../modules/Types";
+import { useLoggedIn } from "../../slices/AuthDataSlice";
 
 const RecipientsPage = () => {
     const recipients = useRecipients();
     const recipientNameQuery = useRecipientNameQuery();
     const dispatch = useDispatch<AppDispatch>();
+    const loggedIn = useLoggedIn();
 
     useEffect(() => {
         dispatch(
@@ -40,7 +42,8 @@ const RecipientsPage = () => {
             <div className="container">
                 <BreadCrumbs crumbs={[{ label: ROUTE_LABELS.RECIPIENTS }]} />
             </div>
-            <DraftProcessInfo />
+
+            {loggedIn && <DraftProcessInfo />}
 
             <div className="block users-block">
                 <form
@@ -78,7 +81,7 @@ const RecipientsPage = () => {
                         <RecipientCard
                             key={i}
                             {...recipientData}
-                            disabled={false}
+                            disabled={!loggedIn}
                         ></RecipientCard>
                     ))}
                 </div>

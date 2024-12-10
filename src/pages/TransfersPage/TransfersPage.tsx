@@ -16,6 +16,7 @@ import { useDispatch } from "react-redux";
 
 import "./TransfersPage.css";
 import { AppDispatch } from "../../modules/Types";
+import { useLoggedIn } from "../../slices/AuthDataSlice";
 
 export default function TransfersPage() {
     const transfers = useTransfers();
@@ -24,6 +25,15 @@ export default function TransfersPage() {
     const formedAtRangeEnd = useFormedAtDateTo();
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
+    const loggedIn = useLoggedIn();
+
+    if (!loggedIn) {
+        return (
+            <h2 style={{ textAlign: "center", marginTop: "30vh" }}>
+                Страница недоступна. Пожалуйста, войдите в аккаунт
+            </h2>
+        );
+    }
 
     useEffect(() => {
         let formedAtDateRange;

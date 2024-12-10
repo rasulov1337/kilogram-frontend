@@ -205,6 +205,10 @@ const draftTransferSlice = createSlice({
                 console.warn(`Recipient with ID ${recipientId} not found`);
             }
         },
+
+        reset(state) {
+            state = draftTransferSlice.getInitialState();
+        },
     },
     extraReducers: (builder) => {
         builder

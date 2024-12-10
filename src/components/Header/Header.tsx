@@ -3,21 +3,16 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../modules/Routes";
-import { useEffect } from "react";
 import { Button, Dropdown } from "react-bootstrap";
 
 import "./Header.css";
-import { useUsername, getHeaderData, signOut } from "../../slices/HeaderSlice";
+import { useUsername, signOut } from "../../slices/AuthDataSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../modules/Types";
 
 export default function Header() {
     const username = useUsername();
     const dispatch = useDispatch<AppDispatch>();
-
-    useEffect(() => {
-        dispatch(getHeaderData());
-    }, [dispatch]);
 
     const navigate = useNavigate();
 
@@ -43,12 +38,14 @@ export default function Header() {
                             >
                                 Получатели
                             </Link>
-                            <Link
-                                className="text-white header__link"
-                                to={ROUTES.TRANSFERS}
-                            >
-                                Отправки файлов
-                            </Link>
+                            {username && (
+                                <Link
+                                    className="text-white header__link"
+                                    to={ROUTES.TRANSFERS}
+                                >
+                                    Отправки файлов
+                                </Link>
+                            )}
 
                             {username && (
                                 <Dropdown className="header__dropdown">

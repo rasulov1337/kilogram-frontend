@@ -13,12 +13,21 @@ import {
 } from "../../slices/ProfilePageSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../modules/Types";
+import { useLoggedIn } from "../../slices/AuthDataSlice";
 
 export default function ProfilePage() {
     const username = useUsername();
     const password = usePassword();
     const isFetchingData = useIsFetchingData();
     const dispatch = useDispatch<AppDispatch>();
+
+    if (!useLoggedIn()) {
+        return (
+            <h2 style={{ textAlign: "center", marginTop: "30vh" }}>
+                Страница недоступна. Пожалуйста, войдите в аккаунт
+            </h2>
+        );
+    }
 
     if (isFetchingData) {
         return (
@@ -68,7 +77,7 @@ export default function ProfilePage() {
                     <Form.Label>Логин</Form.Label>
                     <Form.Control
                         type="text"
-                        value={username}
+                        value={username || ""}
                         placeholder="Новый логин"
                         onChange={(e) =>
                             dispatch(

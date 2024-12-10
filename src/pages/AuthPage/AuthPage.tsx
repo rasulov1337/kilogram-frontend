@@ -5,8 +5,9 @@ import { api } from "../../modules/ApiClient";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setUsernameAction } from "../../slices/HeaderSlice";
+import { authActions, signIn } from "../../slices/AuthDataSlice";
 import { Spinner } from "react-bootstrap";
+import { AppDispatch } from "../../modules/Types";
 
 export default function SigninPage() {
     const [login, setLogin] = useState<string>("");
@@ -14,22 +15,31 @@ export default function SigninPage() {
     const [validated, setValidated] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const [isSignUp, setisSignUp] = useState<boolean>(false);
     const [fetchingData, setFetchingData] = useState<boolean>(false);
 
-    const signin = (username: string, password: string) => {
-        api.signin
-            .signinCreate({ username, password }, { withCredentials: true })
+    const signin = () => {
+        dispatch(signIn({ username: login, password: password }))
             .then(() => {
                 setError(null);
-                dispatch(setUsernameAction(username));
                 navigate("/");
             })
             .catch(() => {
                 setError("Неверный логин или пароль");
                 setFetchingData(false);
             });
+        // api.signin
+        //     .signinCreate({ username, password }, { withCredentials: true })
+        //     .then(() => {
+        //         setError(null);
+        //         dispatch(authActions.setUsername(username));
+        //         navigate("/");
+        //     })
+        //     .catch(() => {
+        //         setError("Неверный логин или пароль");
+        //         setFetchingData(false);
+        //     });
     };
 
     const signup = (username: string, password: string) => {
@@ -37,7 +47,7 @@ export default function SigninPage() {
             .userCreate({ username, password }, { withCredentials: true })
             .then(() => {
                 setError(null);
-                dispatch(setUsernameAction(username));
+                dispatch(authActions.setUsername(username));
                 navigate("/");
             })
             .catch((err) => {
@@ -75,7 +85,7 @@ export default function SigninPage() {
             if (isSignUp) {
                 signup(login, password);
             } else {
-                signin(login, password);
+                signin();
             }
         }
 
