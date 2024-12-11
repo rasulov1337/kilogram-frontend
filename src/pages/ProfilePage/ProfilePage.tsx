@@ -74,11 +74,11 @@ export default function ProfilePage() {
                     className="mb-3"
                     controlId="exampleForm.ControlInput1"
                 >
-                    <Form.Label>Логин</Form.Label>
+                    <Form.Label>Новый Логин</Form.Label>
                     <Form.Control
                         type="text"
                         value={username || ""}
-                        placeholder="Новый логин"
+                        placeholder="Введите новый логин"
                         onChange={(e) =>
                             dispatch(
                                 profilePageActions.setUsername(e.target.value)
@@ -93,7 +93,7 @@ export default function ProfilePage() {
                     <Form.Label>Новый Пароль</Form.Label>
                     <Form.Control
                         type="password"
-                        placeholder="Новый пароль"
+                        placeholder="Введите новый пароль"
                         value={password}
                         onChange={(e) =>
                             dispatch(
