@@ -27,6 +27,12 @@ export default function StartPage() {
                                 <h3>Получатель</h3>
                             </Carousel.Caption>
                         </Carousel.Item>
+                        <Carousel.Item className="CaruselItem">
+                            <img className="CarouselImage" src="./3.png" />
+                            <Carousel.Caption>
+                                <h3>Отправка файлов</h3>
+                            </Carousel.Caption>
+                        </Carousel.Item>
                     </Carousel>
                 </Row>
             </Container>
