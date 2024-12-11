@@ -3,7 +3,7 @@ import { RECIPIENTS_MOCK } from "./Mocks";
 import { Api } from "../api/Api";
 
 export const api = new Api({
-    baseURL: "http://127.0.0.1:8000",
+    baseURL: "http://192.168.119.141:8000",
 });
 
 export default class ApiClient {
