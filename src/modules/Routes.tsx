@@ -8,6 +8,8 @@ export const ROUTES = {
     SIGNOUT: "/signout",
     TRANSFERS: "/transfers/",
     TRANSFER: "/transfers/:id",
+    404: "/404",
+    403: "/403",
 };
 
 export type RouteKeyType = keyof typeof ROUTES;
@@ -21,4 +23,6 @@ export const ROUTE_LABELS: { [key in RouteKeyType]: string } = {
     TRANSFERS: "Отправки файлов",
     TRANSFER: "Отправка файлов",
     PROFILE: "Профиль",
+    404: "Страница не найдена",
+    403: "Доступ запрещен",
 };

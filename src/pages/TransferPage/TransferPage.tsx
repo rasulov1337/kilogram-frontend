@@ -22,6 +22,8 @@ import { Link } from "react-router-dom";
 import { ROUTES } from "../../modules/Routes";
 import Form from "react-bootstrap/Form";
 import { useLoggedIn } from "../../slices/AuthDataSlice";
+import Page404 from "../../components/404/404";
+import Page403 from "../../components/403/403";
 
 export default function DraftTransferPage() {
     const dispatch = useDispatch<AppDispatch>();
@@ -40,21 +42,25 @@ export default function DraftTransferPage() {
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
+        if (!loggedIn) {
+            navigate("/403");
+            return;
+        }
+
         if (id === storedId) {
             return;
         }
 
-        dispatch(draftTransferActions.setId(id));
-        dispatch(getTransferData(id));
+        dispatch(getTransferData(id))
+            .unwrap()
+            .then(() => {
+                dispatch(draftTransferActions.setId(id));
+            })
+            .catch((err) => {
+                console.log(err);
+                navigate("/404");
+            });
     }, [id, dispatch]);
-
-    if (!loggedIn) {
-        return (
-            <h2 style={{ textAlign: "center", marginTop: "30vh" }}>
-                Страница недоступна. Пожалуйста, войдите в аккаунт
-            </h2>
-        );
-    }
 
     if (!recipients) {
         return (

@@ -9,6 +9,8 @@ import { ROUTES } from "./modules/Routes";
 import TransfersPage from "./pages/TransfersPage/TransfersPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import DraftTransferPage from "./pages/TransferPage/TransferPage";
+import Page403 from "./components/403/403";
+import Page404 from "./components/404/404";
 
 function App() {
     return (
@@ -17,6 +19,8 @@ function App() {
 
             <Routes>
                 <Route path="/" index element={<StartPage />} />
+                <Route path={ROUTES[403]} element={<Page403 />} />
+                <Route path={ROUTES[404]} element={<Page404 />} />
                 <Route path={ROUTES.RECIPIENTS} element={<RecipientsPage />} />
                 <Route path={ROUTES.RECIPIENT} element={<RecipientPage />} />
                 <Route path={ROUTES.SIGNIN} element={<SigninPage />} />

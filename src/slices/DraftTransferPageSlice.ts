@@ -24,11 +24,23 @@ export interface RecipientsDataInsideTransfer extends RecipientData {
 
 export const getTransferData = createAsyncThunk<TransferData, string>(
     "draft/getData",
-    async (id: string) => {
-        const { data } = await api.transfers.transfersRead(id, {
-            withCredentials: true,
-        });
-        return data as unknown as TransferData;
+    async (id: string, { rejectWithValue }) => {
+        try {
+            const response = await api.transfers.transfersRead(id, {
+                withCredentials: true,
+            });
+            if (response.status !== 200) {
+                if (response.status === 404) {
+                    return rejectWithValue("Отправка не найдена!");
+                }
+                return rejectWithValue("Unknown error");
+            }
+
+            const { data } = response;
+            return data as unknown as TransferData;
+        } catch (error) {
+            return rejectWithValue({ status: error.status });
+        }
     }
 );
 
