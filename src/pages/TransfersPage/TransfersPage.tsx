@@ -141,7 +141,11 @@ export default function TransfersPage() {
                                 <span>{statusText}</span>
                                 <span>{dateToString(t.created_at)}</span>
                                 <span>{dateToString(t.formed_at)}</span>
-                                <span>{dateToString(t.completed_at)}</span>
+                                <span>
+                                    {t.completed_at
+                                        ? dateToString(t.completed_at)
+                                        : "Не указана"}
+                                </span>
                             </div>
                         );
                     })}
