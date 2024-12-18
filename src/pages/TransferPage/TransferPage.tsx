@@ -22,8 +22,6 @@ import { Link } from "react-router-dom";
 import { ROUTES } from "../../modules/Routes";
 import Form from "react-bootstrap/Form";
 import { useLoggedIn } from "../../slices/AuthDataSlice";
-import Page404 from "../../components/404/404";
-import Page403 from "../../components/403/403";
 
 export default function DraftTransferPage() {
     const dispatch = useDispatch<AppDispatch>();
