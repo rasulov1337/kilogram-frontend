@@ -117,7 +117,7 @@ export default function TransfersPage() {
 
             <div className="table table-dark">
                 <div className="tr tr-heading">
-                    <span>#</span>
+                    <span>Номер заявки</span>
                     <span>Статус</span>
                     <span>Дата создания</span>
                     <span>Дата оформления</span>
