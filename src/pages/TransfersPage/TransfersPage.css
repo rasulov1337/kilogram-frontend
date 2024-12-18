@@ -20,13 +20,17 @@
     width: 100%;
     height: 40px;
     border-radius: 10px;
-    background-color: #fffffff5;
+    background-color: #ffffff;
     color: #000;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 25px 10px;
     cursor: pointer;
+}
+
+.tr:hover {
+    background-color: #ffffffea;
 }
 
 .tr span {
@@ -37,4 +41,8 @@
     background-color: #222222;
     color: #fff;
     cursor: auto;
+}
+
+.tr-heading:hover {
+    background-color: #222;
 }
