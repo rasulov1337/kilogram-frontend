@@ -6,3 +6,35 @@
 .transfers__table {
     width: 100%;
 }
+
+.table {
+    border-collapse: separate;
+    border-spacing: 0 8px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.tr {
+    width: 100%;
+    height: 40px;
+    border-radius: 10px;
+    background-color: #fffffff5;
+    color: #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 10px;
+    cursor: pointer;
+}
+
+.tr span {
+    flex: 0 0 200px;
+}
+
+.tr-heading {
+    background-color: #222222;
+    color: #fff;
+    cursor: auto;
+}

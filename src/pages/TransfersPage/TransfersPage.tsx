@@ -1,4 +1,4 @@
-import { Form, Spinner, Table } from "react-bootstrap";
+import { Form, Spinner } from "react-bootstrap";
 import { useEffect } from "react";
 import { dateToString } from "../../modules/Utils";
 import { BreadCrumbs } from "../../components/BreadCrumbs/BreadCrumbs";
@@ -63,7 +63,7 @@ export default function TransfersPage() {
                     crumbs={[
                         {
                             label: ROUTE_LABELS.TRANSFERS,
-                            path: ROUTES.TRANSFERS,
+                            paspan: ROUTES.TRANSFERS,
                         },
                     ]}
                 />
@@ -115,40 +115,37 @@ export default function TransfersPage() {
                 </Form.Group>
             </div>
 
-            <Table className="transfers__table table-dark" bordered hover>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Статус</th>
-                        <th>Дата создания</th>
-                        <th>Дата оформления</th>
-                        <th>Дата завершения</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {transfers &&
-                        transfers.map((t) => {
-                            const statusText = {
-                                REJ: "Отклонена",
-                                COM: "Завершена",
-                                FRM: "Сформирована",
-                            }[t.status];
+            <div className="table table-dark">
+                <div className="tr tr-heading">
+                    <span>#</span>
+                    <span>Статус</span>
+                    <span>Дата создания</span>
+                    <span>Дата оформления</span>
+                    <span>Дата завершения</span>
+                </div>
+                {transfers &&
+                    transfers.map((t) => {
+                        const statusText = {
+                            REJ: "Отклонена",
+                            COM: "Завершена",
+                            FRM: "Сформирована",
+                        }[t.status];
 
-                            return (
-                                <tr
-                                    key={t.id}
-                                    onClick={() => handleRowClick(t.id)}
-                                >
-                                    <td>{t.id}</td>
-                                    <td>{statusText}</td>
-                                    <td>{dateToString(t.created_at)}</td>
-                                    <td>{dateToString(t.formed_at)}</td>
-                                    <td>{dateToString(t.completed_at)}</td>
-                                </tr>
-                            );
-                        })}
-                </tbody>
-            </Table>
+                        return (
+                            <div
+                                className="tr"
+                                key={t.id}
+                                onClick={() => handleRowClick(t.id)}
+                            >
+                                <span>{t.id}</span>
+                                <span>{statusText}</span>
+                                <span>{dateToString(t.created_at)}</span>
+                                <span>{dateToString(t.formed_at)}</span>
+                                <span>{dateToString(t.completed_at)}</span>
+                            </div>
+                        );
+                    })}
+            </div>
         </div>
     );
 }
